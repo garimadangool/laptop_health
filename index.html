@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocCheck — Laptop Report Card</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="report-card">
+    <header>
+      <h1>DocCheck</h1>
+      <p class="subtitle">Laptop Health Report Card</p>
+      <p class="scan-date" id="scan-date">No scan yet</p>
+    </header>
+
+    <div class="overall">
+      <div class="stamp-wrap">
+        <div class="grade-stamp" id="overall-grade">?</div>
+        <span class="stamp-label">Overall Grade</span>
+      </div>
+      <p class="teacher-note" id="teacher-note">
+        Waiting for results...
+      </p>
+    </div>
+
+    <ul id="subjects"></ul>
+
+    <p id="history"></p>
+
+    <footer>
+      DocCheck &copy; 2026 &mdash; built with Git Bash + HTML/CSS/JS
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
