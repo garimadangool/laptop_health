@@ -144,6 +144,61 @@ function renderProcesses(procs) {
   });
 }
 
+function renderWifi(wifi) {
+  const list = document.getElementById("wifi");
+  list.innerHTML = "";
+
+  if (!wifi || !wifi.ssid || wifi.ssid === "Not connected") {
+    const li = document.createElement("li");
+    li.className = "dim";
+    li.textContent = "Not connected to any WiFi.";
+    list.appendChild(li);
+    return;
+  }
+
+  const nameRow = document.createElement("li");
+  nameRow.className = "wifi-name";
+  nameRow.innerHTML = '📡 <strong>' + wifi.ssid + '</strong>';
+
+  const speedRow = document.createElement("li");
+  speedRow.className = "spec-row";
+  speedRow.innerHTML = '<span>Link speed</span><span class="spec-val">' + wifi.rxRate + '</span>';
+
+  const signalRow = document.createElement("li");
+  signalRow.className = "spec-row";
+
+  let quality = "Poor 😞", qClass = "issue-bad";
+  if (wifi.signal >= 80) { quality = "Excellent 🔥"; qClass = "issue-ok"; }
+  else if (wifi.signal >= 60) { quality = "Good 👍"; qClass = "issue-warn"; }
+  else if (wifi.signal >= 40) { quality = "Fair 😐"; qClass = "issue-warn"; }
+
+  signalRow.innerHTML = '<span>Signal</span><span class="' + qClass + ' sig-pill">' + wifi.signal + '% &mdash; ' + quality + '</span>';
+
+  list.appendChild(nameRow);
+  list.appendChild(speedRow);
+  list.appendChild(signalRow);
+}
+
+function renderSpecs(specs) {
+  const list = document.getElementById("specs");
+  list.innerHTML = "";
+  const rows = [
+    ["Brand", specs.brand],
+    ["Model", specs.model],
+    ["Processor", specs.cpu],
+    ["Graphics", specs.gpu],
+    ["RAM", specs.ramGB + " GB"],
+    ["OS", specs.os],
+    ["Screen", specs.resolution]
+  ];
+  rows.forEach(function (r) {
+    const li = document.createElement("li");
+    li.className = "spec-row";
+    li.innerHTML = '<span>' + r[0] + '</span><span class="spec-val">' + r[1] + '</span>';
+    list.appendChild(li);
+  });
+}
+
 function updateHistory(overall) {
   const el = document.getElementById("history");
   const lastRaw = localStorage.getItem("doccheck-last-score");
@@ -180,6 +235,8 @@ function main() {
   renderSubjects(subjects);
   renderDiagnosis(diagnose(r));
   renderProcesses(r.topProcesses || []);
+  renderWifi(r.wifi);
+  if (r.specs) renderSpecs(r.specs);
 
   const overall = subjects.reduce(function (sum, s) { return sum + s.score; }, 0) / subjects.length;
 

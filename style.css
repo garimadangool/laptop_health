@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -71,8 +73,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Brush Script MT", "Segoe Script", cursive;
-  font-size: 3rem;
+  font-family: "Caveat", "Brush Script MT", "Segoe Script", cursive;
+  font-size: 3.6rem;
+  font-weight: 700;
   color: #e74c3c;
   transform: rotate(-10deg);
 }
@@ -159,20 +162,51 @@ body {
 }
 
 .grade-chip {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Brush Script MT", "Segoe Script", cursive;
-  font-size: 1.3rem;
+  font-family: "Caveat", "Brush Script MT", "Segoe Script", cursive;
+  font-size: 1.5rem;
+  font-weight: 700;
   border: 2.5px solid;
 }
 
 .chip-good { color: #27ae60; border-color: #27ae60; }
 .chip-mid  { color: #e67e22; border-color: #e67e22; }
 .chip-bad  { color: #e74c3c; border-color: #e74c3c; }
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 4px;
+  border-bottom: 1px dashed #e3e9ee;
+  font-size: 0.84rem;
+  color: #55606c;
+}
+
+.spec-row:last-child {
+  border-bottom: none;
+}
+
+.spec-val {
+  text-align: right;
+  font-weight: 600;
+  color: #26313d;
+}
+
+.wifi-name {
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.sig-pill {
+  border-radius: 8px;
+  padding: 3px 10px;
+}
 
 .bar-track {
   height: 12px;
