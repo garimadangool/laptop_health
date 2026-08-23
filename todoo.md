@@ -34,7 +34,7 @@ git branch -M main
 git remote add origin https://github.com/YOUR-USERNAME/doccheck.git
 git push -u origin main
 ```
-
+q
 ### Step 3 — Test the app
 ```bash
 bash health.sh

@@ -8,30 +8,43 @@
 </head>
 <body>
 
-  <div class="report-card">
-    <header>
-      <h1>DocCheck</h1>
+  <div class="dashboard">
+
+    <header class="hero">
+      <h1>🩺 DocCheck</h1>
       <p class="subtitle">Laptop Health Report Card</p>
       <p class="scan-date" id="scan-date">No scan yet</p>
     </header>
 
-    <div class="overall">
+    <section class="score-hero">
       <div class="stamp-wrap">
         <div class="grade-stamp" id="overall-grade">?</div>
-        <span class="stamp-label">Overall Grade</span>
+        <span class="stamp-label">Grade</span>
       </div>
-      <p class="teacher-note" id="teacher-note">
-        Waiting for results...
-      </p>
-    </div>
+      <div class="score-big">
+        <div><span id="overall-percent">--</span><span class="pct">%</span></div>
+        <p class="score-label">Overall Health Score</p>
+      </div>
+      <p class="teacher-note" id="teacher-note">Waiting for results...</p>
+    </section>
 
-    <ul id="subjects"></ul>
+    <section class="subjects" id="subjects"></section>
+
+    <div class="panels">
+      <section class="panel">
+        <h2>🚨 What&rsquo;s Wrong</h2>
+        <ul id="diagnosis"><li class="ok">Run health.sh to find out!</li></ul>
+      </section>
+      <section class="panel">
+        <h2>⚙️ Running Right Now</h2>
+        <ul id="processes"><li class="proc-row dim">No scan data</li></ul>
+      </section>
+    </div>
 
     <p id="history"></p>
 
-    <footer>
-      DocCheck &copy; 2026 &mdash; built with Git Bash + HTML/CSS/JS
-    </footer>
+    <footer>DocCheck &copy; 2026 &mdash; Git Bash + HTML/CSS/JS</footer>
+
   </div>
 
   <script src="data.js"></script>

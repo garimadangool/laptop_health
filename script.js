@@ -14,46 +14,132 @@ const NOTES = {
   F: "Your laptop is failing. Detention: delete junk files and charge the battery."
 };
 
-function fillClass(score) {
+function toneClass(score) {
   if (score >= 80) return "good";
   if (score >= 60) return "mid";
   return "bad";
 }
 
-function buildSubjects(report) {
+function buildSubjects(r) {
+  const batteryDetail = r.charging
+    ? "Charging right now (" + r.battery + "%)"
+    : "On battery power (" + r.battery + "%)";
   return [
-    { name: "Disk Space", score: 100 - report.diskUsed },
-    { name: "RAM Health", score: 100 - report.ramUsed },
-    { name: "Battery", score: report.battery }
+    { icon: "💾", name: "Disk Space", score: 100 - r.diskUsed, detail: r.diskUsed + "% of your disk is used" },
+    { icon: "🧠", name: "RAM Health", score: 100 - r.ramUsed, detail: r.ramUsed + "% of memory in use" },
+    { icon: "⚡", name: "CPU Calmness", score: 100 - r.cpuLoad, detail: "Processor load at " + r.cpuLoad + "%" },
+    { icon: "🔋", name: "Battery", score: r.battery, detail: batteryDetail }
   ];
 }
 
+function diagnose(r) {
+  const issues = [];
+  if (r.diskUsed >= 85) {
+    issues.push({ level: "bad", text: "💾 Disk is " + r.diskUsed + "% full. Delete old files from Downloads and Recycle Bin." });
+  } else if (r.diskUsed >= 70) {
+    issues.push({ level: "warn", text: "💾 Disk is " + r.diskUsed + "% full. Getting crowded in there." });
+  }
+  if (r.ramUsed >= 85) {
+    issues.push({ level: "bad", text: "🧠 RAM at " + r.ramUsed + "%. Close browser tabs — Chrome is eating your memory." });
+  } else if (r.ramUsed >= 70) {
+    issues.push({ level: "warn", text: "🧠 RAM at " + r.ramUsed + "%. A bit heavy." });
+  }
+  if (r.cpuLoad >= 80) {
+    issues.push({ level: "bad", text: "⚡ CPU at " + r.cpuLoad + "%. Something is working overtime — check Running list below." });
+  } else if (r.cpuLoad >= 60) {
+    issues.push({ level: "warn", text: "⚡ CPU at " + r.cpuLoad + "%. Moderate activity." });
+  }
+  if (!r.charging && r.battery < 25) {
+    issues.push({ level: "bad", text: "🔋 Battery at " + r.battery + "% and not charging. Plug in!" });
+  } else if (!r.charging && r.battery < 45) {
+    issues.push({ level: "warn", text: "🔋 Battery at " + r.battery + "%. Keep a charger nearby." });
+  }
+  if (issues.length === 0) {
+    issues.push({ level: "ok", text: "🎉 No problems found. Straight-A laptop behavior!" });
+  }
+  return issues;
+}
+
 function renderSubjects(subjects) {
-  const list = document.getElementById("subjects");
-  list.innerHTML = "";
+  const wrap = document.getElementById("subjects");
+  wrap.innerHTML = "";
   subjects.forEach(function (s) {
-    const li = document.createElement("li");
+    const card = document.createElement("div");
+    card.className = "subject-card";
+
+    const top = document.createElement("div");
+    top.className = "subject-top";
+
+    const icon = document.createElement("span");
+    icon.className = "subject-icon";
+    icon.textContent = s.icon;
 
     const name = document.createElement("span");
     name.className = "subject-name";
     name.textContent = s.name;
 
-    const bar = document.createElement("div");
-    bar.className = "bar";
+    const pct = document.createElement("span");
+    pct.className = "subject-pct";
+    pct.textContent = Math.round(s.score) + "%";
+
+    const chip = document.createElement("span");
+    chip.className = "grade-chip chip-" + toneClass(s.score);
+    chip.textContent = getGrade(s.score);
+
+    top.appendChild(icon);
+    top.appendChild(name);
+    top.appendChild(pct);
+    top.appendChild(chip);
+
+    const track = document.createElement("div");
+    track.className = "bar-track";
 
     const fill = document.createElement("div");
-    fill.className = "fill " + fillClass(s.score);
-    fill.style.width = Math.max(0, Math.min(100, s.score)) + "%";
+    fill.className = "bar-fill fill-" + toneClass(s.score);
+    requestAnimationFrame(function () {
+      fill.style.width = Math.max(0, Math.min(100, s.score)) + "%";
+    });
 
-    bar.appendChild(fill);
+    track.appendChild(fill);
 
-    const letter = document.createElement("span");
-    letter.className = "score-letter";
-    letter.textContent = getGrade(s.score);
+    const detail = document.createElement("div");
+    detail.className = "subject-detail";
+    detail.textContent = s.detail;
 
-    li.appendChild(name);
-    li.appendChild(bar);
-    li.appendChild(letter);
+    card.appendChild(top);
+    card.appendChild(track);
+    card.appendChild(detail);
+    wrap.appendChild(card);
+  });
+}
+
+function renderDiagnosis(issues) {
+  const list = document.getElementById("diagnosis");
+  list.innerHTML = "";
+  issues.forEach(function (i) {
+    const li = document.createElement("li");
+    li.className = "issue issue-" + i.level;
+    li.textContent = i.text;
+    list.appendChild(li);
+  });
+}
+
+function renderProcesses(procs) {
+  const list = document.getElementById("processes");
+  list.innerHTML = "";
+  procs.forEach(function (p, i) {
+    const li = document.createElement("li");
+    li.className = "proc-row";
+
+    const label = document.createElement("span");
+    label.innerHTML = '<span class="proc-rank">#' + (i + 1) + '</span>' + p.name;
+
+    const mb = document.createElement("span");
+    mb.className = "proc-mb";
+    mb.textContent = p.mb + " MB";
+
+    li.appendChild(label);
+    li.appendChild(mb);
     list.appendChild(li);
   });
 }
@@ -61,10 +147,10 @@ function renderSubjects(subjects) {
 function updateHistory(overall) {
   const el = document.getElementById("history");
   const lastRaw = localStorage.getItem("doccheck-last-score");
+  const now = Math.round(overall);
 
   if (lastRaw !== null) {
-    const last = Number(lastRaw);
-    const diff = Math.round(overall) - last;
+    const diff = now - Number(lastRaw);
     if (diff > 0) {
       el.textContent = "📈 Up " + diff + " points since last check. Improvement detected!";
     } else if (diff < 0) {
@@ -73,36 +159,33 @@ function updateHistory(overall) {
       el.textContent = "➖ Same score as last check. Consistent... suspiciously consistent.";
     }
   } else {
-    el.textContent = "First check complete! Run the scan again later to track progress.";
+    el.textContent = "First scan complete! Run health.sh again later to see trends.";
   }
 
-  localStorage.setItem("doccheck-last-score", String(Math.round(overall)));
-}
-
-function showFallback(message) {
-  document.getElementById("teacher-note").textContent = message;
+  localStorage.setItem("doccheck-last-score", String(now));
 }
 
 function main() {
   if (typeof window.REPORT === "undefined") {
-    showFallback('No scan found. Open Git Bash here, run "bash health.sh", then refresh.');
+    document.getElementById("teacher-note").textContent =
+      'No scan found. Open Git Bash in this folder, run "bash health.sh", then refresh this page.';
     return;
   }
 
-  const report = window.REPORT;
+  const r = window.REPORT;
 
-  document.getElementById("scan-date").textContent =
-    "Scanned on " + report.scannedAt;
+  document.getElementById("scan-date").textContent = "Scanned on " + r.scannedAt;
 
-  const subjects = buildSubjects(report);
+  const subjects = buildSubjects(r);
   renderSubjects(subjects);
+  renderDiagnosis(diagnose(r));
+  renderProcesses(r.topProcesses || []);
 
-  const total = subjects.reduce(function (sum, s) { return sum + s.score; }, 0);
-  const overall = total / subjects.length;
-  const overallGrade = getGrade(overall);
+  const overall = subjects.reduce(function (sum, s) { return sum + s.score; }, 0) / subjects.length;
 
-  document.getElementById("overall-grade").textContent = overallGrade;
-  document.getElementById("teacher-note").textContent = NOTES[overallGrade];
+  document.getElementById("overall-percent").textContent = Math.round(overall);
+  document.getElementById("overall-grade").textContent = getGrade(overall);
+  document.getElementById("teacher-note").textContent = NOTES[getGrade(overall)];
 
   updateHistory(overall);
 }
