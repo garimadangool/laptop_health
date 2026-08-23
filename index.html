@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DocCheck — Laptop Report Card</title>
+  <title>DocCheck — Laptop Health Report Card</title>
+  <meta name="description" content="DocCheck grades your Windows laptop's health like a school report card — disk, RAM, CPU and battery scores, trend charts, life expectancy and a doctor's action plan.">
+  <meta name="theme-color" content="#16202c">
+  <meta property="og:title" content="DocCheck — Laptop Health Report Card">
+  <meta property="og:description" content="A doctor for your laptop that grades it like homework. Scan with Git Bash, get real health grades.">
+  <link rel="icon" href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,75 +19,114 @@
   <div class="dashboard">
 
     <header class="hero">
-      <button id="lang-btn">नेपाली</button>
+      <button id="lang-btn" type="button">नेपाली</button>
       <h1>🩺 DocCheck</h1>
       <p class="subtitle" data-i18n="subtitle">Laptop Health Report Card</p>
       <p class="scan-date" id="scan-date">No scan yet</p>
     </header>
 
-    <section class="score-hero">
-      <div class="stamp-wrap">
-        <div class="grade-stamp" id="overall-grade">?</div>
-        <span class="stamp-label">Grade</span>
-      </div>
-      <div class="score-big">
-        <div><span id="overall-percent">--</span><span class="pct">%</span></div>
-        <p class="score-label">Overall Health Score</p>
-      </div>
-      <p class="teacher-note" id="teacher-note">Waiting for results...</p>
-    </section>
+    <main>
 
-    <section class="subjects" id="subjects"></section>
+      <section class="score-hero" aria-label="Overall result">
+        <div class="stamp-wrap">
+          <div class="grade-stamp" id="overall-grade" aria-label="Overall grade">?</div>
+          <span class="stamp-label" data-i18n="stamp_label">Grade</span>
+        </div>
+        <div class="score-ring" id="score-ring">
+          <div class="score-inner">
+            <div><span id="overall-percent">--</span><span class="pct">%</span></div>
+            <p class="score-label" data-i18n="score_label">Overall Health Score</p>
+          </div>
+        </div>
+        <div class="mood" id="mood" aria-hidden="true">🙂</div>
+        <p class="teacher-note" id="teacher-note" aria-live="polite">Waiting for results...</p>
+      </section>
 
-    <div class="panels">
-      <section class="panel">
+      <section class="laptop-strip" id="laptop-strip" style="display:none" aria-label="Your laptop identity">
+        <div class="laptop-id">
+          <span class="laptop-avatar" aria-hidden="true">💻</span>
+          <div>
+            <p class="laptop-kicker" data-i18n="your_laptop">Your Laptop</p>
+            <h2 class="laptop-name" id="laptop-name">—</h2>
+          </div>
+        </div>
+        <div class="laptop-chips" id="laptop-chips"></div>
+      </section>
+
+      <section class="subjects" id="subjects" aria-label="Subject scores"></section>
+
+      <section class="trend-zone" aria-label="Health trend">
+        <h2 class="trend-title" data-i18n="p_trend">📈 Health Trend</h2>
+        <p id="history" role="status"></p>
+        <p id="prediction" role="status" style="display:none"></p>
+        <div class="chart-card">
+          <div id="chart"><p class="dim chart-hint" data-i18n="chart_hint">Scan twice to unlock your progress chart 📊</p></div>
+        </div>
+      </section>
+
+      <section class="life-banner" id="life-banner" style="display:none" aria-label="Life expectancy">
+        <div class="life-head">
+          <span class="life-icon" aria-hidden="true">⏳</span>
+          <div>
+            <h3 data-i18n="life_title">Laptop Life Expectancy</h3>
+            <p class="life-born" id="life-born"></p>
+          </div>
+        </div>
+        <div class="life-big-wrap">
+          <span class="life-big" id="life-years">--</span>
+          <span class="life-big-sub" data-i18n="lbl_life">Estimated life left</span>
+        </div>
+        <div class="life-track-side">
+          <div class="life-track"><div class="life-used" id="life-used"></div></div>
+          <p class="life-note" id="life-note-txt"></p>
+        </div>
+      </section>
+
+      <section class="panel panel-rx" aria-label="Doctor's prescription">
         <h2 data-i18n="p_prescription">🩺 Doctor&rsquo;s Prescription</h2>
         <ul id="diagnosis"><li class="issue issue-ok">Run health.sh first!</li></ul>
         <h3 class="plan-title" data-i18n="plan_title">🎯 Your Action Plan</h3>
         <ol id="action-plan"></ol>
       </section>
-      <section class="panel">
-        <h2>⚙️ Running Right Now</h2>
-        <ul id="processes"><li class="proc-row dim">No scan data</li></ul>
-      </section>
-    </div>
 
-    <div class="panels">
-      <section class="panel">
-        <h2>📶 WiFi Connection</h2>
-        <ul id="wifi"><li class="dim">No scan data</li></ul>
-      </section>
-      <section class="panel">
-        <h2>💻 This Laptop</h2>
-        <ul id="specs"><li class="dim">No scan data</li></ul>
-      </section>
-    </div>
+      <details class="deep-dive">
+        <summary>
+          <span data-i18n="deepdive_title">🔬 Deep Dive &mdash; Raw Details</span>
+          <span class="dd-arrow" aria-hidden="true">▾</span>
+        </summary>
+        <div class="panels">
+          <section class="panel">
+            <h2 data-i18n="p_running">⚙️ Running Right Now</h2>
+            <ul id="processes"><li class="proc-row dim">No scan data</li></ul>
+          </section>
+          <section class="panel">
+            <h2 data-i18n="p_startup">🚀 Starts With Your Laptop</h2>
+            <p class="startup-summary" id="startup-summary"></p>
+            <ul class="startup-chips" id="startup"><li class="dim">No scan data</li></ul>
+          </section>
+          <section class="panel">
+            <h2 data-i18n="p_wifi">📶 WiFi Connection</h2>
+            <ul id="wifi"><li class="dim">No scan data</li></ul>
+          </section>
+        </div>
+        <section class="panel panel-storage" aria-label="Storage drives">
+          <h2 data-i18n="p_storage">💿 Storage Drives</h2>
+          <ul id="storage"><li class="dim">No scan data</li></ul>
+        </section>
+      </details>
 
-    <div class="panels">
-      <section class="panel">
-        <h2 data-i18n="p_storage">💿 Storage Drives</h2>
-        <ul id="storage"><li class="dim">No scan data</li></ul>
-      </section>
-      <section class="panel">
-        <h2 data-i18n="p_startup">🚀 Starts With Your Laptop</h2>
-        <ul id="startup"><li class="dim">No scan data</li></ul>
-      </section>
-    </div>
+      <div class="btn-row">
+        <button id="print-btn" type="button">🖨️ Print Report Card</button>
+        <button id="csv-btn" type="button">⬇️ Export CSV</button>
+      </div>
 
-    <p id="history"></p>
-    <p id="prediction"></p>
-    <div id="chart"></div>
-
-    <div class="btn-row">
-      <button id="print-btn">🖨️ Print Report Card</button>
-      <button id="csv-btn">⬇️ Export CSV</button>
-    </div>
+    </main>
 
     <footer>DocCheck &copy; 2026 &mdash; Git Bash + HTML/CSS/JS</footer>
 
   </div>
 
-  <canvas id="confetti"></canvas>
+  <canvas id="confetti" aria-hidden="true"></canvas>
 
   <script src="data.js"></script>
   <script src="script.js"></script>

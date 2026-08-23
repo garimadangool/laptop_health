@@ -1,13 +1,13 @@
 window.REPORT = {
-  scannedAt: "2026-08-23 03:30 PM",
+  scannedAt: "2026-08-23 05:46 PM",
   diskUsed: 40,
-  ramUsed: 72,
+  ramUsed: 76,
   cpuLoad: 0,
-  battery: 100,
+  battery: 99,
   charging: true,
   batteryWear: -1,
-  uptime: "257h 13m",
-  topProcesses: [{"name":"vmmemWSL","mb":1354},{"name":"Memory Compression","mb":902},{"name":"Code","mb":314},{"name":"dwm","mb":291},{"name":"MsMpEng","mb":269}],
+  uptime: "259h 28m",
+  topProcesses: [{"name":"vmmemWSL","mb":1577},{"name":"Memory Compression","mb":993},{"name":"brave","mb":360},{"name":"Code","mb":333},{"name":"MsMpEng","mb":296}],
   startup: [{"name":"Ollama","cmd":"Ollama.lnk"},{"name":"OneDrive","cmd":"\"C:\\Users\\lenovo\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe\" /background"},{"name":"Microsoft.Lists","cmd":"C:\\Users\\lenovo\\AppData\\Local\\Microsoft\\OneDrive\\26.139.0720.0007\\OneDrive.Sync.Service.exe"},{"name":"GoogleUpdaterTaskUser152.0.7933.0","cmd":"\"C:\\Users\\lenovo\\AppData\\Local\\Google\\GoogleUpdater\\152.0.7933.0\\updater.exe\" --wake"},{"name":"MicrosoftCopilotAutoLaunch_AD1531C46F0A6204C19FE2D1BD790F2D","cmd":"\"C:\\Program Files (x86)\\Microsoft\\Copilot\\Application\\mscopilot.exe\" --no-startup-window --win-session-start"},{"name":"MicrosoftEdgeAutoLaunch_B8188322885C6DD24FAC5C8FE26E079B","cmd":"\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --no-startup-window --win-session-start"},{"name":"SecurityHealth","cmd":"%windir%\\system32\\SecurityHealthSystray.exe"},{"name":"RtkAudUService","cmd":"\"C:\\Windows\\System32\\DriverStore\\FileRepository\\realtekservice.inf_amd64_26f0df01c9da165d\\RtkAudUService64.exe\" -background"}],
   storage: [{"name":"KBG60ZNT512G LS KIOXIA","type":"SSD","sizeGb":477,"health":"Healthy"}],
   wifi: { ssid: "Wi-Fi (connected)", rxRate: "270 Mbps", signal: 0 },
@@ -27,6 +27,6 @@ window.REPORT = {
     biosDate: "2026-01",
     resolution: "1536 x 864",
     refreshHz: 0,
-    uptime: "257h 13m"
+    uptime: "259h 28m"
   }
 };

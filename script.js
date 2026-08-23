@@ -10,11 +10,13 @@ const T = {
   s_ram: { en: "RAM Health", ne: "RAM स्वास्थ्य" },
   s_cpu: { en: "CPU Calmness", ne: "CPU शान्ति" },
   s_battery: { en: "Battery", ne: "ब्याट्री" },
+  s_startup: { en: "Startup Load", ne: "स्टार्टअप लोड" },
+  s_fresh: { en: "Freshness", ne: "ताजगी" },
   p_prescription: { en: "🩺 Doctor’s Prescription", ne: "🩺 डाक्टरको सल्लाह" },
   p_running: { en: "⚙️ Running Right Now", ne: "⚙️ अहिले चलिरहेका" },
   p_wifi: { en: "📶 WiFi Connection", ne: "📶 वाइफाई जडान" },
-  p_laptop: { en: "💻 This Laptop", ne: "💻 यो ल्यापटप" },
   p_storage: { en: "💿 Storage Drives", ne: "💿 भण्डारण ड्राइभ" },
+  deepdive_title: { en: "🔬 Deep Dive — Raw Details", ne: "🔬 गहिरो विश्लेषण — विस्तृत विवरण" },
   p_startup: { en: "🚀 Starts With Your Laptop", ne: "🚀 सुरु हुने एपहरू" },
   print_btn: { en: "🖨️ Print Report Card", ne: "🖨️ प्रिन्ट गर्नुहोस्" },
   csv_btn: { en: "⬇️ Export CSV", ne: "⬇️ CSV डाउनलोड" },
@@ -42,12 +44,12 @@ const T = {
   note_C: { en: "Average. Your laptop is doing homework at the last minute.", ne: "ठीकै छ। ल्यापटपले आखिरी बेलामा मात्र होमवर्क गर्छ।" },
   note_D: { en: "Barely passing. Close some tabs and free some space.", ne: "मुस्किलले पास। केही ट्याब बन्द गरी ठाउँ खाली गर्नुहोस्।" },
   note_F: { en: "Your laptop is failing. Detention: delete junk files and charge the battery.", ne: "तपाईंको ल्यापटप फेल भयो। जंक फाइल मेट्नुहोस् र ब्याट्री चार्ज गर्नुहोस्।" },
-  hist_up: { en: "📈 Up {x} points since last check. Improvement detected!", ne: "📈 पछिल्लो जाँचभन्दा {x} अंक बढ्यो! सुधार!" },
-  hist_down: { en: "📉 Down {x} points since last check. We need to talk.", ne: "📉 पछिल्लो जाँचभन्दा {x} अंक घट्यो। कुरा गर्नैपर्छ।" },
-  hist_same: { en: "➖ Same score as last check. Consistent... suspiciously consistent.", ne: "➖ पछिल्लो जाँचजस्तै अंक। सन्देहास्पद रूपमा स्थिर।" },
-  hist_first: { en: "First scan saved! Run DocCheck again later to unlock trend predictions.", ne: "पहिलो स्क्यान सुरक्षित! पछि फेरि स्क्यान गर्नुहोस्, ट्रेन्ड हेर्न सकिनेछ।" },
-  pred_up: { en: "🔮 DocCheck AI: trending UP (+{x} pts avg). Keep it up!", ne: "🔮 DocCheck AI: ट्रेन्ड माथि (+{x} औसत)। यस्तै गर्दै गर्नुहोस्!" },
-  pred_down: { en: "🔮 DocCheck AI: trending DOWN ({x} pts avg). A cleanup is coming...", ne: "🔮 DocCheck AI: ट्रेन्ड तल ({x} औसत)। सफाई आवश्यक..." },
+  hist_up: { en: "Up {x} points since last check", ne: "पछिल्लो जाँचभन्दा {x} अंक बढ्यो" },
+  hist_down: { en: "Down {x} points since last check", ne: "पछिल्लो जाँचभन्दा {x} अंक घट्यो" },
+  hist_same: { en: "Same score as last check", ne: "पछिल्लो जाँचजस्तै अंक" },
+  hist_first: { en: "First scan saved!", ne: "पहिलो स्क्यान सुरक्षित!" },
+  pred_up: { en: "DocCheck AI: trending UP (+{x} pts avg). Keep it up!", ne: "🔮 DocCheck AI: ट्रेन्ड माथि (+{x} औसत)। यस्तै गर्दै गर्नुहोस्!" },
+  pred_down: { en: "DocCheck AI: trending DOWN ({x} pts avg). A cleanup is coming...", ne: "🔮 DocCheck AI: ट्रेन्ड तल ({x} औसत)। सफाई आवश्यक..." },
   q_excellent: { en: "Excellent 🔥", ne: "उत्कृष्ट 🔥" },
   q_good: { en: "Good 👍", ne: "राम्रो 👍" },
   q_fair: { en: "Fair 😐", ne: "ठीक 😐" },
@@ -70,15 +72,29 @@ const T = {
   life_soon: { en: "~{x} year — plan an upgrade", ne: "~{x} वर्ष — अपग्रेडको योजना बनाउनुहोस्" },
   life_unknown: { en: "Unknown (BIOS date hidden)", ne: "अज्ञात (BIOS मिति छैन)" },
   life_note: { en: "Rough guess from age + health. Typical laptop life ≈ 7 yrs.", ne: "उमेर + स्वास्थ्यबाट अनुमान। सामान्य ल्यापटप आयु ≈ ७ वर्ष।" },
-  adv_backup: { en: "Back up your important files TODAY — failing laptops rarely warn twice.", ne: "आज नै फाइलहरूको ब्याकअप लिनुहोस् — बिग्रँदा दोस्रो चेतावनी दिँदैनन्।" },
-  adv_disk: { en: "Free disk space: Disk Cleanup → empty Recycle Bin → clear old Downloads.", ne: "डिस्क खाली गर्नुहोस्: Disk Cleanup चलाउनुहोस्, Recycle Bin खाली गर्नुहोस्।" },
-  adv_startup: { en: "Disable unneeded startup apps (see the 'Starts With Your Laptop' panel).", ne: "आवश्यक नभएका स्टार्टअप एपहरू बन्द गर्नुहोस् ('सुरु हुने एपहरू' प्यानल हेर्नुहोस्)।" },
+  your_laptop: { en: "Your Laptop", ne: "तपाईंको ल्यापटप" },
+  adv_backup: { en: "Back up your important files TODAY — failing drives rarely warn twice.", ne: "आज नै फाइलहरूको ब्याकअप लिनुहोस् — बिग्रँदा दोस्रो चेतावनी दिँदैनन्।" },
+  adv_disk: { en: "Free disk space: run Disk Cleanup → empty Recycle Bin → clear old Downloads.", ne: "डिस्क खाली गर्नुहोस्: Disk Cleanup चलाउनुहोस्, Recycle Bin खाली गर्नुहोस्।" },
+  adv_startup: { en: "Disable unneeded startup apps: Task Manager → Startup apps.", ne: "आवश्यक नभएका स्टार्टअप एपहरू बन्द गर्नुहोस्: Task Manager → Startup apps।" },
   adv_cpu: { en: "Close heavy apps you don't need — check 'Running Right Now'.", ne: "नचाहिने भारी एपहरू बन्द गर्नुहोस् — 'अहिले चलिरहेका' हेर्नुहोस्।" },
+  adv_top_proc: { en: "'{x}' is eating {y} MB of RAM right now — close it if you're not using it.", ne: "'{x}' ले अहिले {y} MB RAM खाइरहेको छ — नचाहिए बन्द गर्नुहोस्।" },
+  adv_restart: { en: "Restart your laptop — it has been awake for {x}. A reboot clears stuck memory.", ne: "ल्यापटप रिस्टार्ट गर्नुहोस् — {x} देखि खुला छ। रिबुटले RAM सफा हुन्छ।" },
   adv_batt_habit: { en: "Battery habit: stay between 20–80% charge when possible.", ne: "ब्याट्री बानी: सक्दो २०–८०% चार्जमा राख्नुहोस्।" },
   adv_maintain: { en: "Keep winning: monthly vent cleaning + Windows Update.", ne: "यस्तै राख्नुहोस्: महिनामा एक पटक भेन्ट सफा + Windows Update।" },
   adv_scan: { en: "Run DocCheck weekly to catch problems early.", ne: "हप्तामा एक पटक DocCheck चलाउनुहोस्, समस्या चाँडो समात्न।" },
-  plan_title: { en: "🎯 Your Action Plan", ne: "🎯 तपाईंको कार्ययोजना" }
+  plan_title: { en: "🎯 Your Action Plan", ne: "🎯 तपाईंको कार्ययोजना" },
+  p_trend: { en: "📈 Health Trend", ne: "📈 स्वास्थ्य ट्रेन्ड" },
+  chart_hint: { en: "Scan twice to unlock your progress chart 📊", ne: "चार्ट खोल्न दुई पटक स्क्यान गर्नुहोस् 📊" },
+  life_title: { en: "Laptop Life Expectancy", ne: "ल्यापटप आयु अनुमान" },
+  born_line: { en: "Born {x} · {y} yrs old", ne: "{x} मा बनेको · {y} वर्ष" },
+  startup_count: { en: "{x} apps wake up when you press the power button", ne: "पावर बटन थिच्दा {x} वटा एप ब्यूँझन्छन्" },
+  fresh_detail: { en: "Awake for {x} — a reboot clears stuck memory", ne: "{x} देखि खुला — रिस्टार्टले RAM सफा गर्छ" },
+  rx_note: { en: "Dr. DocCheck", ne: "डा. DocCheck" }
 };
+
+const MOODS = { A: "😄", B: "🙂", C: "😐", D: "😕", F: "🤒" };
+const RING_COLORS = { good: "#27ae60", mid: "#e67e22", bad: "#e74c3c" };
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function t(key, vars) {
   let str = (T[key] && (T[key][LANG] || T[key].en)) || key;
@@ -104,20 +120,74 @@ function toneClass(score) {
   return "bad";
 }
 
+function loadHistory() {
+  try {
+    return JSON.parse(localStorage.getItem("doccheck-history") || "[]");
+  } catch (e) {
+    return [];
+  }
+}
+
 let LAST_SUBJECTS = [];
 let LAST_OVERALL = 0;
 
-function buildSubjects(r) {
+const SUBJ_KEYS = { "💾": "disk", "🧠": "ram", "⚡": "cpu", "🔋": "bat", "🚀": "startup", "🔄": "fresh" };
+
+function uptimeHours(str) {
+  const m = String(str || "").match(/^(\d+)h/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function scoreStartupApps(n) {
+  if (!n || n <= 3) return 100;
+  if (n === 4) return 92;
+  if (n === 5) return 84;
+  if (n === 6) return 74;
+  if (n === 7) return 62;
+  return Math.max(40, 52 - (n - 8) * 4);
+}
+
+function scoreFreshness(hours) {
+  if (hours === null) return 90;
+  if (hours < 48) return 100;
+  if (hours < 96) return 88;
+  if (hours < 168) return 72;
+  if (hours < 240) return 58;
+  return Math.max(35, 45 - Math.floor((hours - 240) / 72) * 5);
+}
+
+function buildSubjects(r, prevD) {
   let batteryDetail = r.charging ? t("charging_now", { x: r.battery }) : t("on_battery", { x: r.battery });
   if (typeof r.batteryWear === "number" && r.batteryWear >= 0) {
     batteryDetail += " · " + t("keeps_cap", { x: 100 - r.batteryWear });
   }
-  return [
+  const appCount = (r.startup || []).length;
+  const upH = uptimeHours(r.uptime);
+  const raw = [
     { icon: "💾", name: t("s_disk"), score: 100 - r.diskUsed, detail: t("disk_used", { x: r.diskUsed }) },
     { icon: "🧠", name: t("s_ram"), score: 100 - r.ramUsed, detail: t("ram_used", { x: r.ramUsed }) },
     { icon: "⚡", name: t("s_cpu"), score: 100 - r.cpuLoad, detail: t("cpu_load", { x: r.cpuLoad }) },
-    { icon: "🔋", name: t("s_battery"), score: r.battery, detail: batteryDetail }
+    { icon: "🔋", name: t("s_battery"), score: r.battery, detail: batteryDetail },
+    {
+      icon: "🚀",
+      name: t("s_startup"),
+      score: scoreStartupApps(appCount),
+      detail: t("startup_count", { x: appCount })
+    },
+    {
+      icon: "🔄",
+      name: t("s_fresh"),
+      score: scoreFreshness(upH),
+      detail: upH === null ? (r.uptime || "—") : t("fresh_detail", { x: r.uptime })
+    }
   ];
+  raw.forEach(function (s) {
+    s.key = SUBJ_KEYS[s.icon];
+    s.delta = (prevD && typeof prevD[s.key] === "number")
+      ? Math.round(s.score) - prevD[s.key]
+      : null;
+  });
+  return raw;
 }
 
 function diagnose(r) {
@@ -146,9 +216,10 @@ function diagnose(r) {
 function renderSubjects(subjects) {
   const wrap = document.getElementById("subjects");
   wrap.innerHTML = "";
-  subjects.forEach(function (s) {
+  subjects.forEach(function (s, i) {
     const card = document.createElement("div");
     card.className = "subject-card";
+    card.style.animationDelay = (i * 80) + "ms";
 
     const top = document.createElement("div");
     top.className = "subject-top";
@@ -160,6 +231,22 @@ function renderSubjects(subjects) {
     const name = document.createElement("span");
     name.className = "subject-name";
     name.textContent = s.name;
+
+    if (s.delta !== null && !isNaN(s.delta)) {
+      const delta = document.createElement("span");
+      delta.title = LANG === "ne" ? "पछिल्लो स्क्यानसँग तुलना" : "vs last scan";
+      if (s.delta > 0) {
+        delta.className = "subject-delta up";
+        delta.textContent = "▲ +" + s.delta;
+      } else if (s.delta < 0) {
+        delta.className = "subject-delta down";
+        delta.textContent = "▼ " + s.delta;
+      } else {
+        delta.className = "subject-delta same";
+        delta.textContent = "— 0";
+      }
+      top.appendChild(delta);
+    }
 
     const pct = document.createElement("span");
     pct.className = "subject-pct";
@@ -215,6 +302,7 @@ function renderProcesses(procs) {
     li.className = "proc-row";
 
     const label = document.createElement("span");
+    label.className = "proc-name truncate";
     label.innerHTML = '<span class="proc-rank">#' + (i + 1) + '</span>' + p.name;
 
     const mb = document.createElement("span");
@@ -229,22 +317,21 @@ function renderProcesses(procs) {
 
 function renderStartup(apps) {
   const list = document.getElementById("startup");
+  const summary = document.getElementById("startup-summary");
   list.innerHTML = "";
-  (apps || []).forEach(function (a) {
+
+  if (!apps || !apps.length) {
+    summary.textContent = "";
+    return;
+  }
+
+  summary.textContent = t("startup_count", { x: apps.length });
+
+  apps.forEach(function (a) {
     const li = document.createElement("li");
-    li.className = "proc-row";
-
-    const name = document.createElement("span");
-    name.className = "truncate";
-    name.textContent = a.name;
-
-    const cmd = document.createElement("span");
-    cmd.className = "dim truncate startup-cmd";
-    cmd.textContent = a.cmd;
-    cmd.title = a.cmd;
-
-    li.appendChild(name);
-    li.appendChild(cmd);
+    li.className = "startup-chip";
+    li.textContent = a.name;
+    li.title = a.cmd;
     list.appendChild(li);
   });
 }
@@ -299,61 +386,77 @@ function estimateLife(specs, score) {
   };
 }
 
-function renderSpecs(specs, overall) {
-  const list = document.getElementById("specs");
-  list.innerHTML = "";
+function cleanCpu(name) {
+  return String(name || "").replace(/\((R|TM|tm|r)\)/g, "").replace(/\s+/g, " ").trim();
+}
 
-  let cpuText = specs.cpu || "Unknown";
-  const cpuBits = [];
-  if (specs.cpuCores) cpuBits.push(specs.cpuCores + "C/" + specs.cpuThreads + "T");
-  if (specs.cpuGHz && specs.cpuGHz !== "0") cpuBits.push(specs.cpuGHz + " GHz");
-  if (cpuBits.length) cpuText += " (" + cpuBits.join(", ") + ")";
+function cleanOs(name) {
+  return String(name || "").replace(/^Microsoft\s+/i, "").replace(/Single Language/i, "").replace(/\s+/g, " ").trim();
+}
 
-  let screenText = specs.resolution;
+function renderLaptopStrip(specs) {
+  const strip = document.getElementById("laptop-strip");
+  if (!specs || !specs.brand) {
+    strip.style.display = "none";
+    return;
+  }
+  strip.style.display = "";
+
+  document.getElementById("laptop-name").textContent =
+    [specs.brand, specs.model].filter(Boolean).join(" ");
+
+  let cpuText = cleanCpu(specs.cpu);
+  if (specs.cpuCores) cpuText += " · " + specs.cpuCores + "C/" + specs.cpuThreads + "T";
+
+  let screenText = specs.resolution || "";
   if (specs.refreshHz) screenText += " @ " + specs.refreshHz + " Hz";
 
-  const life = estimateLife(specs, overall);
-
-  const rows = [
-    [t("lbl_brand"), [specs.brand, specs.model].filter(Boolean).join(" ")],
-    [t("lbl_cpu"), cpuText],
-    [t("lbl_gpu"), specs.gpu],
-    [t("lbl_ram"), specs.ramDetail],
-    [t("lbl_board"), specs.motherboard],
-    [t("lbl_bios"), specs.bios],
-    [t("lbl_os"), [specs.os, specs.osBuild ? "build " + specs.osBuild : ""].filter(Boolean).join(" · ")],
-    [t("lbl_screen"), screenText],
-    [t("lbl_uptime"), specs.uptime]
+  const chips = [
+    ["🧠", t("lbl_cpu"), cpuText],
+    ["🎮", t("lbl_gpu"), specs.gpu],
+    ["📦", t("lbl_ram"), specs.ramDetail],
+    ["🖥️", t("lbl_os"), cleanOs(specs.os)],
+    ["📺", t("lbl_screen"), screenText],
+    ["⏱️", t("lbl_uptime"), specs.uptime]
   ];
 
-  rows.forEach(function (r) {
-    if (!r[1]) return;
-    const li = document.createElement("li");
-    li.className = "spec-row";
-    li.innerHTML = '<span>' + r[0] + '</span><span class="spec-val">' + r[1] + '</span>';
-    list.appendChild(li);
+  const wrap = document.getElementById("laptop-chips");
+  wrap.innerHTML = "";
+  chips.forEach(function (c) {
+    if (!c[2]) return;
+    const chip = document.createElement("div");
+    chip.className = "strip-chip";
+    chip.innerHTML = '<span class="strip-icon">' + c[0] + '</span><span class="strip-body"><small>' +
+      c[1] + '</small><b>' + c[2] + '</b></span>';
+    wrap.appendChild(chip);
+  });
+}
+
+function renderLifeBanner(specs, overall) {
+  const banner = document.getElementById("life-banner");
+  const life = estimateLife(specs, overall);
+  if (!life) {
+    banner.style.display = "none";
+    return;
+  }
+  banner.style.display = "";
+
+  document.getElementById("life-born").textContent =
+    t("born_line", { x: life.born, y: life.age });
+
+  const yearsEl = document.getElementById("life-years");
+  yearsEl.textContent = life.remaining + " yrs";
+  yearsEl.className = "life-big " +
+    (life.remaining <= 1 ? "life-bad" : life.remaining >= 3 ? "life-good" : "life-mid");
+
+  const usedPct = Math.max(2, Math.min(100, Math.round((life.age / 7) * 100)));
+  const used = document.getElementById("life-used");
+  used.style.width = "0%";
+  requestAnimationFrame(function () {
+    used.style.width = usedPct + "%";
   });
 
-  if (life) {
-    const bornLi = document.createElement("li");
-    bornLi.className = "spec-row";
-    bornLi.innerHTML = '<span>🎂 ' + t("lbl_born") + '</span><span class="spec-val">' +
-      life.born + " (" + life.age + " yrs old)</span>";
-    list.appendChild(bornLi);
-
-    const lifeLi = document.createElement("li");
-    lifeLi.className = "spec-row";
-    let lifeCls = "life-good", lifeTxt;
-    if (life.remaining <= 1) { lifeCls = "life-bad"; lifeTxt = t("life_soon", { x: life.remaining }); }
-    else { lifeCls = life.remaining >= 3 ? "life-good" : "life-mid"; lifeTxt = t("life_years", { x: life.remaining }); }
-    lifeLi.innerHTML = '<span>⏳ ' + t("lbl_life") + '</span><span class="spec-val ' + lifeCls + '">' + lifeTxt + '</span>';
-    list.appendChild(lifeLi);
-
-    const noteLi = document.createElement("li");
-    noteLi.className = "dim life-note";
-    noteLi.textContent = t("life_note");
-    list.appendChild(noteLi);
-  }
+  document.getElementById("life-note-txt").textContent = t("life_note");
 }
 
 function buildAdvice(r, grade, subjects) {
@@ -382,6 +485,25 @@ function buildAdvice(r, grade, subjects) {
   return acts.slice(0, 6);
 }
 
+function buildSmartAdvice(r, grade, subjects) {
+  const acts = buildAdvice(r, grade, subjects);
+
+  if (r.topProcesses && r.topProcesses.length && r.topProcesses[0].mb > 400) {
+    const p = r.topProcesses[0];
+    acts.unshift(t("adv_top_proc", { x: p.name, y: p.mb }));
+  }
+
+  const upMatch2 = String(r.uptime || "").match(/^(\d+)h/);
+  if (upMatch2 && parseInt(upMatch2[1], 10) >= 48 && acts.indexOf(t("adv_restart", { x: r.uptime })) === -1) {
+    const restartMsg = t("adv_restart", { x: r.uptime });
+    if (acts.indexOf(restartMsg) === -1) {
+      acts.splice(1, 0, restartMsg);
+    }
+  }
+
+  return acts.slice(0, 7);
+}
+
 function renderActionPlan(acts) {
   const list = document.getElementById("action-plan");
   list.innerHTML = "";
@@ -401,7 +523,7 @@ function renderStorage(drives) {
     li.className = "storage-row";
 
     const name = document.createElement("span");
-    name.className = "storage-name";
+    name.className = "storage-name truncate";
     name.textContent = d.name;
 
     const badge = document.createElement("span");
@@ -425,30 +547,107 @@ function renderStorage(drives) {
   });
 }
 
-function updateHistory(overall, stamp) {
+function chartDate(str) {
+  const m = String(str).match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return MONTHS[parseInt(m[2], 10) - 1] + " " + parseInt(m[3], 10);
+  return str;
+}
+
+function renderChart(hist) {
+  const chart = document.getElementById("chart");
+  if (hist.length < 2) {
+    chart.removeAttribute("role");
+    chart.removeAttribute("aria-label");
+    chart.innerHTML = '<p class="dim chart-hint">' + t("chart_hint") + "</p>";
+    return;
+  }
+  chart.innerHTML = "";
+
+  const minV = Math.min.apply(null, hist.map(function (h) { return h.s; }));
+  const maxV = Math.max.apply(null, hist.map(function (h) { return h.s; }));
+  const base = Math.max(0, Math.floor((minV - 8) / 10) * 10);
+  const top = Math.min(100, Math.ceil((maxV + 5) / 10) * 10);
+
+  hist.forEach(function (h, i) {
+    const col = document.createElement("div");
+    col.className = "chart-col";
+    col.title = h.t + " — " + h.s + "%";
+    const score = document.createElement("span");
+    score.className = "chart-score sc-" + toneClass(h.s);
+    score.textContent = h.s;
+
+    const bar = document.createElement("div");
+    bar.className = "chart-bar";
+
+    const fill = document.createElement("div");
+    fill.className = "chart-fill fill-" + toneClass(h.s);
+    fill.style.height = "0";
+    const pctH = ((h.s - base) / (top - base)) * 100;
+    setTimeout(function () {
+      fill.style.height = Math.max(6, pctH) + "%";
+    }, 80 + i * 90);
+
+    bar.appendChild(fill);
+
+    const delta = document.createElement("span");
+    delta.className = "chart-delta";
+    if (i > 0) {
+      const d = h.s - hist[i - 1].s;
+      if (d > 0) { delta.textContent = "▲" + d; delta.classList.add("up"); }
+      else if (d < 0) { delta.textContent = "▼" + Math.abs(d); delta.classList.add("down"); }
+      else delta.textContent = "—";
+    } else {
+      delta.innerHTML = "&nbsp;";
+    }
+
+    const date = document.createElement("span");
+    date.className = "chart-date";
+    date.textContent = chartDate(h.t);
+
+    col.appendChild(score);
+    col.appendChild(bar);
+    col.appendChild(delta);
+    col.appendChild(date);
+    chart.appendChild(col);
+  });
+
+  chart.setAttribute("role", "img");
+  chart.setAttribute("aria-label",
+    hist.map(function (h) { return chartDate(h.t) + ": " + h.s + " percent"; }).join(", "));
+}
+
+function updateHistory(overall, stamp, subjects) {
   const el = document.getElementById("history");
   const predEl = document.getElementById("prediction");
-  const hist = JSON.parse(localStorage.getItem("doccheck-history") || "[]");
+  const hist = loadHistory();
 
   if (hist.length > 0) {
     const prev = hist[hist.length - 1].s;
     const diff = Math.round(overall) - prev;
     if (diff > 0) {
-      el.className = "trend-up";
+      el.className = "trend-pill trend-up";
       el.textContent = "📈 " + t("hist_up", { x: diff });
     } else if (diff < 0) {
-      el.className = "trend-down";
+      el.className = "trend-pill trend-down";
       el.textContent = "📉 " + t("hist_down", { x: Math.abs(diff) });
     } else {
-      el.className = "trend-same";
+      el.className = "trend-pill trend-same";
       el.textContent = "➖ " + t("hist_same");
     }
   } else {
-    el.className = "trend-new";
+    el.className = "trend-pill trend-new";
     el.textContent = "✨ " + t("hist_first");
   }
 
-  hist.push({ s: Math.round(overall), t: stamp });
+  const dMap = {};
+  subjects.forEach(function (s) { dMap[s.key] = Math.round(s.score); });
+  const entry = { s: Math.round(overall), t: stamp, d: dMap };
+
+  if (hist.length && hist[hist.length - 1].t === stamp) {
+    hist[hist.length - 1] = entry;
+  } else {
+    hist.push(entry);
+  }
   while (hist.length > 8) hist.shift();
   localStorage.setItem("doccheck-history", JSON.stringify(hist));
 
@@ -460,28 +659,10 @@ function updateHistory(overall, stamp) {
     for (let i = 0; i < half; i++) oldSum += hist[i].s;
     for (let i = half; i < hist.length; i++) newSum += hist[i].s;
     const oldAvg = oldSum / half, newAvg = newSum / (hist.length - half);
-    if (newAvg > oldAvg) predEl.textContent = t("pred_up", { x: Math.round(newAvg - oldAvg) });
-    else predEl.textContent = t("pred_down", { x: Math.round(newAvg - oldAvg) });
+    if (newAvg > oldAvg) predEl.textContent = "🔮 " + t("pred_up", { x: Math.round(newAvg - oldAvg) });
+    else predEl.textContent = "🔮 " + t("pred_down", { x: Math.round(newAvg - oldAvg) });
+    predEl.style.display = "";
   }
-}
-
-function renderChart(hist) {
-  const chart = document.getElementById("chart");
-  chart.innerHTML = "";
-  if (hist.length < 2) return;
-  hist.forEach(function (h) {
-    const col = document.createElement("div");
-    col.className = "chart-bar";
-    const fill = document.createElement("div");
-    fill.className = "chart-fill fill-" + toneClass(h.s);
-    fill.style.height = "0";
-    fill.title = h.t + " — " + h.s + "%";
-    requestAnimationFrame(function () {
-      fill.style.height = Math.max(4, h.s) + "%";
-    });
-    col.appendChild(fill);
-    chart.appendChild(col);
-  });
 }
 
 function countUp(el, target) {
@@ -589,21 +770,7 @@ function applyStaticLabels() {
   document.getElementById("lang-btn").textContent = t("lang_switch");
 }
 
-function addI18nHeadings() {
-  const map = { prescription: "p_prescription", running: "p_running", wifi: "p_wifi", laptop: "p_laptop", storage: "p_storage", startup: "p_startup" };
-  const panels = document.querySelectorAll(".panel h2");
-  const keys = ["p_prescription", "p_running", "p_wifi", "p_laptop", "p_storage", "p_startup"];
-  panels.forEach(function (h, i) {
-    if (keys[i]) {
-      h.setAttribute("data-i18n", keys[i]);
-      h.textContent = t(keys[i]);
-    }
-  });
-}
-
 function main() {
-  addI18nHeadings();
-
   if (typeof window.REPORT === "undefined") {
     document.getElementById("teacher-note").textContent = t("no_scan");
     return;
@@ -614,7 +781,10 @@ function main() {
   document.getElementById("scan-date").textContent =
     (LANG === "ne" ? "स्क्यान गरिएको: " : "Scanned on ") + r.scannedAt;
 
-  const subjects = buildSubjects(r);
+  const hist = loadHistory();
+  const prevEntry = hist.length ? hist[hist.length - 1] : null;
+
+  const subjects = buildSubjects(r, prevEntry ? prevEntry.d : null);
   LAST_SUBJECTS = subjects;
   renderSubjects(subjects);
   renderDiagnosis(diagnose(r));
@@ -627,22 +797,58 @@ function main() {
   LAST_OVERALL = overall;
   const grade = getGrade(overall);
 
-  if (r.specs) renderSpecs(r.specs, overall);
-  renderActionPlan(buildAdvice(r, grade, subjects));
+  if (r.specs) {
+    renderLaptopStrip(r.specs);
+    renderLifeBanner(r.specs, overall);
+  }
+  renderActionPlan(buildSmartAdvice(r, grade, subjects));
 
   countUp(document.getElementById("overall-percent"), Math.round(overall));
   document.getElementById("overall-grade").textContent = grade;
-  document.getElementById("teacher-note").textContent = T["note_" + grade][LANG] || T["note_" + grade].en;
+  document.getElementById("teacher-note").textContent =
+    (LANG === "ne" ? '" ' : "\u201C") + T["note_" + grade][LANG] + (LANG === "ne" ? " \"" : "\"");
 
-  updateHistory(overall, r.scannedAt);
+  const moodEl = document.getElementById("mood");
+  moodEl.textContent = MOODS[grade];
+  moodEl.style.animation = "none";
+  void moodEl.offsetWidth;
+  moodEl.style.animation = "";
+
+  const stampEl = document.getElementById("overall-grade");
+  stampEl.classList.remove("slam");
+  void stampEl.offsetWidth;
+  stampEl.classList.add("slam");
+
+  const ring = document.getElementById("score-ring");
+  const deg = Math.max(0, Math.min(100, Math.round(overall))) * 3.6;
+  ring.style.background =
+    "conic-gradient(" + RING_COLORS[toneClass(overall)] + " " + deg + "deg, #edf1f5 " + deg + "deg)";
+
+  updateHistory(overall, r.scannedAt, subjects);
 
   if (grade === "A") {
     setTimeout(confettiBurst, 400);
   }
 }
 
+function syncHtmlLang() {
+  document.documentElement.lang = LANG === "ne" ? "ne" : "en";
+}
+
 document.getElementById("print-btn").addEventListener("click", function () {
   window.print();
+});
+
+const PRINT_OPENED = [];
+window.addEventListener("beforeprint", function () {
+  document.querySelectorAll("details:not([open])").forEach(function (d) {
+    d.open = true;
+    PRINT_OPENED.push(d);
+  });
+});
+window.addEventListener("afterprint", function () {
+  PRINT_OPENED.forEach(function (d) { d.open = false; });
+  PRINT_OPENED.length = 0;
 });
 
 document.getElementById("csv-btn").addEventListener("click", exportCSV);
@@ -650,9 +856,11 @@ document.getElementById("csv-btn").addEventListener("click", exportCSV);
 document.getElementById("lang-btn").addEventListener("click", function () {
   LANG = LANG === "en" ? "ne" : "en";
   localStorage.setItem("doccheck-lang", LANG);
+  syncHtmlLang();
   applyStaticLabels();
   main();
 });
 
+syncHtmlLang();
 applyStaticLabels();
 main();
