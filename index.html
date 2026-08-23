@@ -11,8 +11,9 @@
   <div class="dashboard">
 
     <header class="hero">
+      <button id="lang-btn">नेपाली</button>
       <h1>🩺 DocCheck</h1>
-      <p class="subtitle">Laptop Health Report Card</p>
+      <p class="subtitle" data-i18n="subtitle">Laptop Health Report Card</p>
       <p class="scan-date" id="scan-date">No scan yet</p>
     </header>
 
@@ -52,11 +53,25 @@
       </section>
     </div>
 
+    <div class="panels">
+      <section class="panel">
+        <h2 data-i18n="p_storage">💿 Storage Drives</h2>
+        <ul id="storage"><li class="dim">No scan data</li></ul>
+      </section>
+      <section class="panel">
+        <h2 data-i18n="p_startup">🚀 Starts With Your Laptop</h2>
+        <ul id="startup"><li class="dim">No scan data</li></ul>
+      </section>
+    </div>
+
     <p id="history"></p>
     <p id="prediction"></p>
     <div id="chart"></div>
 
-    <button id="print-btn">🖨️ Print Report Card</button>
+    <div class="btn-row">
+      <button id="print-btn">🖨️ Print Report Card</button>
+      <button id="csv-btn">⬇️ Export CSV</button>
+    </div>
 
     <footer>DocCheck &copy; 2026 &mdash; Git Bash + HTML/CSS/JS</footer>
 
