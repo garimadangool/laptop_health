@@ -27,9 +27,23 @@ IFS='|' read -r GPUNAME RESH RESV <<< "$VIDEO"
 
 WIFI_RAW=$(netsh.exe wlan show interfaces 2>/dev/null | tr -d '\r')
 
+ADAPTER_INFO=$(powershell.exe -NoProfile -Command "\$a = Get-NetAdapter | Where-Object { \$_.Status -eq 'Up' } | Sort-Object LinkSpeed -Descending | Select-Object -First 1; '{0}|{1}' -f \$a.Name, \$a.LinkSpeed" 2>/dev/null | tail -1 | tr -d '\r')
+
+IFS='|' read -r ADAPTER LINKSPEED <<< "$ADAPTER_INFO"
+
 SSID=$(echo "$WIFI_RAW" | grep -i "SSID" | grep -vi "BSSID" | sed 's/.*: //' | head -1)
 SIGNAL=$(echo "$WIFI_RAW" | grep -i "Signal" | grep -o '[0-9]*' | head -1)
 RXRATE=$(echo "$WIFI_RAW" | grep -i "Receive rate" | sed 's/.*: //' | awk '{print $1}')
+RXUNIT=$(echo "$WIFI_RAW" | grep -i "Receive rate" | sed 's/.*: //' | awk '{print $2}')
+
+if [ -z "$RXRATE" ] || [ "$RXRATE" = "0" ]; then
+  RXRATE=$(echo "$LINKSPEED" | awk '{print $1}')
+  RXUNIT="Mbps"
+fi
+
+if [ -z "$SSID" ] && [ -n "$ADAPTER" ]; then
+  SSID="${ADAPTER} (connected)"
+fi
 
 case $DISK in ''|*[!0-9]*) DISK=0 ;; esac
 case $RAM in ''|*[!0-9]*) RAM=0 ;; esac
@@ -63,7 +77,11 @@ done <<< "$PROCS"
 
 if [ -z "$PROC_JSON" ]; then PROC_JSON='{\"name\":\"unknown\",\"mb\":0}'; fi
 
-NOWTIME=$(TZ='Asia/Kathmandu' date '+%Y-%m-%d %I:%M %p (Nepal Time)')
+NOWTIME=$(powershell.exe -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd hh:mm tt'" 2>/dev/null | tail -1 | tr -d '\r')
+if [ -z "$NOWTIME" ]; then NOWTIME=$(date '+%Y-%m-%d %I:%M %p'); fi
+
+UPTIME=$(powershell.exe -NoProfile -Command "\$u = (Get-Date) - (Get-CimInstance Win32_OperatingSystem).LastBootUpTime; '{0}h {1}m' -f [math]::Floor(\$u.TotalHours), \$u.Minutes" 2>/dev/null | tail -1 | tr -d '\r')
+[ -z "$UPTIME" ] && UPTIME="unknown"
 
 cat > data.js << EOF
 window.REPORT = {
@@ -82,7 +100,8 @@ window.REPORT = {
     gpu: "${GPUNAME}",
     ramGB: ${RAMTOTAL},
     os: "${OSNAME}",
-    resolution: "${RESH} x ${RESV}"
+    resolution: "${RESH} x ${RESV}",
+    uptime: "${UPTIME}"
   }
 };
 EOF

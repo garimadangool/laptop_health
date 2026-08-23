@@ -199,13 +199,14 @@ function renderSpecs(specs) {
   });
 }
 
-function updateHistory(overall) {
+function updateHistory(overall, stamp) {
   const el = document.getElementById("history");
-  const lastRaw = localStorage.getItem("doccheck-last-score");
-  const now = Math.round(overall);
+  const predEl = document.getElementById("prediction");
+  const hist = JSON.parse(localStorage.getItem("doccheck-history") || "[]");
 
-  if (lastRaw !== null) {
-    const diff = now - Number(lastRaw);
+  if (hist.length > 0) {
+    const prev = hist[hist.length - 1].s;
+    const diff = Math.round(overall) - prev;
     if (diff > 0) {
       el.textContent = "📈 Up " + diff + " points since last check. Improvement detected!";
     } else if (diff < 0) {
@@ -214,10 +215,105 @@ function updateHistory(overall) {
       el.textContent = "➖ Same score as last check. Consistent... suspiciously consistent.";
     }
   } else {
-    el.textContent = "First scan complete! Run health.sh again later to see trends.";
+    el.textContent = "First scan saved! Run DocCheck again later to unlock trend predictions.";
   }
 
-  localStorage.setItem("doccheck-last-score", String(now));
+  hist.push({ s: Math.round(overall), t: stamp });
+  while (hist.length > 8) hist.shift();
+  localStorage.setItem("doccheck-history", JSON.stringify(hist));
+
+  renderChart(hist);
+
+  if (hist.length >= 4) {
+    const half = Math.floor(hist.length / 2);
+    let oldSum = 0, newSum = 0;
+    for (let i = 0; i < half; i++) oldSum += hist[i].s;
+    for (let i = half; i < hist.length; i++) newSum += hist[i].s;
+    const oldAvg = oldSum / half, newAvg = newSum / (hist.length - half);
+    if (newAvg > oldAvg) {
+      predEl.textContent = "🔮 DocCheck AI: trending UP (+" + Math.round(newAvg - oldAvg) + " pts avg). Keep it up!";
+    } else {
+      predEl.textContent = "🔮 DocCheck AI: trending DOWN (" + Math.round(newAvg - oldAvg) + " pts avg). A cleanup is coming...";
+    }
+  }
+}
+
+function renderChart(hist) {
+  const chart = document.getElementById("chart");
+  chart.innerHTML = "";
+  if (hist.length < 2) return;
+  hist.forEach(function (h) {
+    const col = document.createElement("div");
+    col.className = "chart-bar";
+    const fill = document.createElement("div");
+    fill.className = "chart-fill fill-" + toneClass(h.s);
+    fill.style.height = "0";
+    fill.title = h.t + " — " + h.s + "%";
+    requestAnimationFrame(function () {
+      fill.style.height = Math.max(4, h.s) + "%";
+    });
+    col.appendChild(fill);
+    chart.appendChild(col);
+  });
+}
+
+function countUp(el, target) {
+  let current = 0;
+  const step = Math.max(1, Math.round(target / 30));
+  const timer = setInterval(function () {
+    current += step;
+    if (current >= target) {
+      current = target;
+      clearInterval(timer);
+    }
+    el.textContent = current;
+  }, 25);
+}
+
+function confettiBurst() {
+  const canvas = document.getElementById("confetti");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ["#e74c3c", "#f1c40f", "#2ecc71", "#5b6ef5", "#8f5bf0"];
+  const bits = [];
+  for (let i = 0; i < 130; i++) {
+    bits.push({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * canvas.height * 0.5,
+      w: 6 + Math.random() * 7,
+      h: 8 + Math.random() * 9,
+      vy: 2 + Math.random() * 3.5,
+      vx: -1.5 + Math.random() * 3,
+      rot: Math.random() * 360,
+      vr: -6 + Math.random() * 12,
+      color: colors[i % colors.length]
+    });
+  }
+
+  let frames = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    bits.forEach(function (b) {
+      b.x += b.vx;
+      b.y += b.vy;
+      b.rot += b.vr;
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      ctx.rotate(b.rot * Math.PI / 180);
+      ctx.fillStyle = b.color;
+      ctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h);
+      ctx.restore();
+    });
+    frames++;
+    if (frames < 220) {
+      requestAnimationFrame(draw);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+  draw();
 }
 
 function main() {
@@ -240,11 +336,19 @@ function main() {
 
   const overall = subjects.reduce(function (sum, s) { return sum + s.score; }, 0) / subjects.length;
 
-  document.getElementById("overall-percent").textContent = Math.round(overall);
+  countUp(document.getElementById("overall-percent"), Math.round(overall));
   document.getElementById("overall-grade").textContent = getGrade(overall);
   document.getElementById("teacher-note").textContent = NOTES[getGrade(overall)];
 
-  updateHistory(overall);
+  updateHistory(overall, r.scannedAt);
+
+  if (getGrade(overall) === "A") {
+    setTimeout(confettiBurst, 400);
+  }
 }
+
+document.getElementById("print-btn").addEventListener("click", function () {
+  window.print();
+});
 
 main();
