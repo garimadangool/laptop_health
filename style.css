@@ -258,6 +258,44 @@ body {
   color: #c0392b;
 }
 
+.plan-title {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 2px dashed #e3e9ee;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #5b6ef5;
+}
+
+#action-plan {
+  margin: 10px 0 0 4px;
+  padding-left: 22px;
+}
+
+#action-plan li {
+  font-size: 0.87rem;
+  color: #44403a;
+  line-height: 1.55;
+  margin-bottom: 7px;
+  padding-left: 4px;
+}
+
+#action-plan li::marker {
+  color: #5b6ef5;
+  font-weight: 700;
+}
+
+.life-good { color: #27ae60; }
+.life-mid  { color: #e67e22; }
+.life-bad  { color: #e74c3c; }
+
+.life-note {
+  font-size: 0.72rem !important;
+  font-style: italic;
+  padding-top: 4px;
+}
+
 .bar-track {
   height: 12px;
   background: #edf1f5;

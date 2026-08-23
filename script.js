@@ -63,7 +63,21 @@ const T = {
   lbl_bios: { en: "BIOS", ne: "BIOS" },
   lbl_os: { en: "OS", ne: "OS" },
   lbl_screen: { en: "Screen", ne: "स्क्रिन" },
-  lbl_uptime: { en: "Uptime", ne: "चलेको समय" }
+  lbl_uptime: { en: "Uptime", ne: "चलेको समय" },
+  lbl_born: { en: "Manufactured", ne: "निर्माण मिति" },
+  lbl_life: { en: "Estimated life left", ne: "अनुमानित बाँकी आयु" },
+  life_years: { en: "~{x} years (with good care)", ne: "~{x} वर्ष (राम्रो हेरचाहमा)" },
+  life_soon: { en: "~{x} year — plan an upgrade", ne: "~{x} वर्ष — अपग्रेडको योजना बनाउनुहोस्" },
+  life_unknown: { en: "Unknown (BIOS date hidden)", ne: "अज्ञात (BIOS मिति छैन)" },
+  life_note: { en: "Rough guess from age + health. Typical laptop life ≈ 7 yrs.", ne: "उमेर + स्वास्थ्यबाट अनुमान। सामान्य ल्यापटप आयु ≈ ७ वर्ष।" },
+  adv_backup: { en: "Back up your important files TODAY — failing laptops rarely warn twice.", ne: "आज नै फाइलहरूको ब्याकअप लिनुहोस् — बिग्रँदा दोस्रो चेतावनी दिँदैनन्।" },
+  adv_disk: { en: "Free disk space: Disk Cleanup → empty Recycle Bin → clear old Downloads.", ne: "डिस्क खाली गर्नुहोस्: Disk Cleanup चलाउनुहोस्, Recycle Bin खाली गर्नुहोस्।" },
+  adv_startup: { en: "Disable unneeded startup apps (see the 'Starts With Your Laptop' panel).", ne: "आवश्यक नभएका स्टार्टअप एपहरू बन्द गर्नुहोस् ('सुरु हुने एपहरू' प्यानल हेर्नुहोस्)।" },
+  adv_cpu: { en: "Close heavy apps you don't need — check 'Running Right Now'.", ne: "नचाहिने भारी एपहरू बन्द गर्नुहोस् — 'अहिले चलिरहेका' हेर्नुहोस्।" },
+  adv_batt_habit: { en: "Battery habit: stay between 20–80% charge when possible.", ne: "ब्याट्री बानी: सक्दो २०–८०% चार्जमा राख्नुहोस्।" },
+  adv_maintain: { en: "Keep winning: monthly vent cleaning + Windows Update.", ne: "यस्तै राख्नुहोस्: महिनामा एक पटक भेन्ट सफा + Windows Update।" },
+  adv_scan: { en: "Run DocCheck weekly to catch problems early.", ne: "हप्तामा एक पटक DocCheck चलाउनुहोस्, समस्या चाँडो समात्न।" },
+  plan_title: { en: "🎯 Your Action Plan", ne: "🎯 तपाईंको कार्ययोजना" }
 };
 
 function t(key, vars) {
@@ -271,7 +285,21 @@ function renderWifi(wifi) {
   list.appendChild(signalRow);
 }
 
-function renderSpecs(specs) {
+function estimateLife(specs, score) {
+  if (!specs.biosDate || !/^\d{4}-\d{2}$/.test(specs.biosDate)) return null;
+  const [y, m] = specs.biosDate.split("-").map(Number);
+  const now = new Date();
+  const ageYears = (now.getFullYear() + now.getMonth() / 12) - (y + (m - 1) / 12);
+  if (ageYears < 0) return null;
+  const remaining = Math.max(0.5, Math.round(((7 - ageYears) * (0.5 + score / 200)) * 10) / 10);
+  return {
+    born: specs.biosDate,
+    age: Math.round(ageYears * 10) / 10,
+    remaining: remaining
+  };
+}
+
+function renderSpecs(specs, overall) {
   const list = document.getElementById("specs");
   list.innerHTML = "";
 
@@ -283,6 +311,8 @@ function renderSpecs(specs) {
 
   let screenText = specs.resolution;
   if (specs.refreshHz) screenText += " @ " + specs.refreshHz + " Hz";
+
+  const life = estimateLife(specs, overall);
 
   const rows = [
     [t("lbl_brand"), [specs.brand, specs.model].filter(Boolean).join(" ")],
@@ -301,6 +331,63 @@ function renderSpecs(specs) {
     const li = document.createElement("li");
     li.className = "spec-row";
     li.innerHTML = '<span>' + r[0] + '</span><span class="spec-val">' + r[1] + '</span>';
+    list.appendChild(li);
+  });
+
+  if (life) {
+    const bornLi = document.createElement("li");
+    bornLi.className = "spec-row";
+    bornLi.innerHTML = '<span>🎂 ' + t("lbl_born") + '</span><span class="spec-val">' +
+      life.born + " (" + life.age + " yrs old)</span>";
+    list.appendChild(bornLi);
+
+    const lifeLi = document.createElement("li");
+    lifeLi.className = "spec-row";
+    let lifeCls = "life-good", lifeTxt;
+    if (life.remaining <= 1) { lifeCls = "life-bad"; lifeTxt = t("life_soon", { x: life.remaining }); }
+    else { lifeCls = life.remaining >= 3 ? "life-good" : "life-mid"; lifeTxt = t("life_years", { x: life.remaining }); }
+    lifeLi.innerHTML = '<span>⏳ ' + t("lbl_life") + '</span><span class="spec-val ' + lifeCls + '">' + lifeTxt + '</span>';
+    list.appendChild(lifeLi);
+
+    const noteLi = document.createElement("li");
+    noteLi.className = "dim life-note";
+    noteLi.textContent = t("life_note");
+    list.appendChild(noteLi);
+  }
+}
+
+function buildAdvice(r, grade, subjects) {
+  const acts = [];
+  const sorted = subjects.slice().sort(function (a, b) { return a.score - b.score; });
+
+  if (grade === "F" || grade === "D") {
+    acts.push(t("adv_backup"));
+  }
+
+  sorted.forEach(function (s) {
+    if (s.score >= 70) return;
+    if (s.icon === "💾" && acts.indexOf(t("adv_disk")) === -1) acts.push(t("adv_disk"));
+    if ((s.icon === "🧠" || s.icon === "⚡") && r.startup && r.startup.length > 4 && acts.indexOf(t("adv_startup")) === -1) acts.push(t("adv_startup"));
+    if (s.icon === "⚡" && acts.indexOf(t("adv_cpu")) === -1) acts.push(t("adv_cpu"));
+    if (s.icon === "🔋" && acts.indexOf(t("adv_batt_habit")) === -1) acts.push(t("adv_batt_habit"));
+  });
+
+  if (grade === "A") {
+    acts.push(t("adv_maintain"));
+  } else if (acts.length === 0) {
+    acts.push(t("adv_maintain"));
+  }
+  acts.push(t("adv_scan"));
+
+  return acts.slice(0, 6);
+}
+
+function renderActionPlan(acts) {
+  const list = document.getElementById("action-plan");
+  list.innerHTML = "";
+  acts.forEach(function (a) {
+    const li = document.createElement("li");
+    li.textContent = a;
     list.appendChild(li);
   });
 }
@@ -535,18 +622,21 @@ function main() {
   renderStartup(r.startup);
   renderWifi(r.wifi);
   renderStorage(r.storage);
-  if (r.specs) renderSpecs(r.specs);
 
   const overall = subjects.reduce(function (sum, s) { return sum + s.score; }, 0) / subjects.length;
   LAST_OVERALL = overall;
+  const grade = getGrade(overall);
+
+  if (r.specs) renderSpecs(r.specs, overall);
+  renderActionPlan(buildAdvice(r, grade, subjects));
 
   countUp(document.getElementById("overall-percent"), Math.round(overall));
-  document.getElementById("overall-grade").textContent = getGrade(overall);
-  document.getElementById("teacher-note").textContent = T["note_" + getGrade(overall)][LANG] || T["note_" + getGrade(overall)].en;
+  document.getElementById("overall-grade").textContent = grade;
+  document.getElementById("teacher-note").textContent = T["note_" + grade][LANG] || T["note_" + grade].en;
 
   updateHistory(overall, r.scannedAt);
 
-  if (getGrade(overall) === "A") {
+  if (grade === "A") {
     setTimeout(confettiBurst, 400);
   }
 }

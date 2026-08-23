@@ -157,6 +157,7 @@ window.REPORT = {
     bios: "${BIOSVER} (${BIOSDATE})",
     os: "${OSNAME}",
     osBuild: "${OSBUILD}",
+    biosDate: "${BIOSDATE}",
     resolution: "${RESH} x ${RESV}",
     refreshHz: ${REFRESH},
     uptime: "${UPTIME}"
