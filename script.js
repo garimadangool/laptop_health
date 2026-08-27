@@ -12,14 +12,18 @@ const T = {
   s_battery: { en: "Battery", ne: "ब्याट्री" },
   s_startup: { en: "Startup Load", ne: "स्टार्टअप लोड" },
   s_fresh: { en: "Freshness", ne: "ताजगी" },
-  p_prescription: { en: "🩺 Doctor’s Prescription", ne: "🩺 डाक्टरको सल्लाह" },
-  p_running: { en: "⚙️ Running Right Now", ne: "⚙️ अहिले चलिरहेका" },
-  p_wifi: { en: "📶 WiFi Connection", ne: "📶 वाइफाई जडान" },
-  p_storage: { en: "💿 Storage Drives", ne: "💿 भण्डारण ड्राइभ" },
-  deepdive_title: { en: "🔬 Deep Dive — Raw Details", ne: "🔬 गहिरो विश्लेषण — विस्तृत विवरण" },
-  p_startup: { en: "🚀 Starts With Your Laptop", ne: "🚀 सुरु हुने एपहरू" },
-  print_btn: { en: "🖨️ Print Report Card", ne: "🖨️ प्रिन्ट गर्नुहोस्" },
-  csv_btn: { en: "⬇️ Export CSV", ne: "⬇️ CSV डाउनलोड" },
+  p_prescription: { en: "Doctor’s Prescription", ne: "डाक्टरको सल्लाह" },
+  p_running: { en: "Running Right Now", ne: "अहिले चलिरहेका" },
+  p_wifi: { en: "WiFi Connection", ne: "वाइफाई जडान" },
+  p_storage: { en: "Storage Drives", ne: "भण्डारण ड्राइभ" },
+  deepdive_title: { en: "Deep Dive — Raw Details", ne: "गहिरो विश्लेषण — विस्तृत विवरण" },
+  p_startup: { en: "Starts With Your Laptop", ne: "सुरु हुने एपहरू" },
+  print_btn_label: { en: "Print Report Card", ne: "प्रिन्ट गर्नुहोस्" },
+  csv_btn_label: { en: "Export CSV", ne: "CSV डाउनलोड" },
+  scan_btn_label: { en: "Scan Again", ne: "फेरि स्क्यान गर्नुहोस्" },
+  scan_running: { en: "Scanning…", ne: "स्क्यान हुँदैछ…" },
+  scan_status_ok: { en: "Report updated", ne: "रिपोर्ट अद्यावधिक भयो" },
+  scan_fail: { en: "Could not reach the scanner. Run \"bash setup-scanserver.sh\" once in the DocCheck folder, then press Scan Again.", ne: "स्क्यानर भेटिएन। DocCheck फोल्डरमा एक पटक \"bash setup-scanserver.sh\" चलाउनुहोस्, अनी 'फेरि स्क्यान' थिच्नुहोस्।" },
   lang_switch: { en: "नेपाली", ne: "English" },
   disk_used: { en: "{x}% of your disk is used", ne: "डिस्कको {x}% प्रयोग भएको छ" },
   ram_used: { en: "{x}% of memory in use", ne: "मेमोरीको {x}% प्रयोगमा छ" },
@@ -27,18 +31,18 @@ const T = {
   charging_now: { en: "Charging right now ({x}%)", ne: "अहिले चार्ज हुँदैछ ({x}%)" },
   on_battery: { en: "On battery power ({x}%)", ne: "ब्याट्रीमा चलिरहेको ({x}%)" },
   keeps_cap: { en: "keeps {x}% of factory capacity", ne: "फ्याक्ट्री क्षमताको {x}% कायम छ" },
-  disk_bad: { en: "💾 Disk is {x}% full. Delete old files from Downloads and Recycle Bin.", ne: "💾 डिस्क {x}% भरियो। पुराना फाइलहरू मेट्नुहोस्।" },
-  disk_warn: { en: "💾 Disk is {x}% full. Getting crowded in there.", ne: "💾 डिस्क {x}% भरिएको छ। अलि बढी भयो।" },
-  ram_bad: { en: "🧠 RAM at {x}%. Close browser tabs — Chrome is eating your memory.", ne: "🧠 RAM {x}%। ब्राउजर ट्याबहरू बन्द गर्नुहोस्।" },
-  ram_warn: { en: "🧠 RAM at {x}%. A bit heavy.", ne: "🧠 RAM {x}%। अलि बढी भयो।" },
-  cpu_bad: { en: "⚡ CPU at {x}%. Something is working overtime — check Running list below.", ne: "⚡ CPU {x}%। केही अत्यधिक चलिरहेको छ — तलको सूची हेर्नुहोस्।" },
-  cpu_warn: { en: "⚡ CPU at {x}%. Moderate activity.", ne: "⚡ CPU {x}%। मध्यम गतिविधि।" },
-  batt_low: { en: "🔋 Battery at {x}% and not charging. Plug in!", ne: "🔋 ब्याट्री {x}% र चार्ज हुँदैछैन। प्लग हाल्नुहोस्!" },
-  batt_mid: { en: "🔋 Battery at {x}%. Keep a charger nearby.", ne: "🔋 ब्याट्री {x}%। चार्जर नजिकै राख्नुहोस्।" },
-  wear_bad: { en: "🔋 Battery has lost {x}% of its factory capacity. Consider a replacement soon.", ne: "🔋 ब्याट्रीले फ्याक्ट्री क्षमताको {x}% गुमाइसकेको छ। चाँडै सट्टा गर्नुहोस्।" },
-  wear_warn: { en: "🔋 Battery wear at {x}%. Aging normally, but keep an eye on it.", ne: "🔋 ब्याट्री घिसार {x}%। सामान्य तर ध्यान दिनुहोस्।" },
-  drive_fail: { en: "💿 Drive '{x}' reports bad health. Back up your files NOW!", ne: "💿 ड्राइभ '{x}' मा समस्या देखियो। फाइलहरूको ब्याकअप लिनुहोस्!" },
-  all_ok: { en: "🎉 No problems found. Straight-A laptop behavior!", ne: "🎉 कुनै समस्या भेटिएन। उत्कृष्ट ल्यापटप!" },
+  disk_bad: { en: "Disk is {x}% full. Delete old files from Downloads and Recycle Bin.", ne: "डिस्क {x}% भरियो। पुराना फाइलहरू मेट्नुहोस्।" },
+  disk_warn: { en: "Disk is {x}% full. Getting crowded in there.", ne: "डिस्क {x}% भरिएको छ। अलि बढी भयो।" },
+  ram_bad: { en: "RAM at {x}%. Close browser tabs — Chrome is eating your memory.", ne: "RAM {x}%। ब्राउजर ट्याबहरू बन्द गर्नुहोस्।" },
+  ram_warn: { en: "RAM at {x}%. A bit heavy.", ne: "RAM {x}%। अलि बढी भयो।" },
+  cpu_bad: { en: "CPU at {x}%. Something is working overtime — check Running list below.", ne: "CPU {x}%। केही अत्यधिक चलिरहेको छ — तलको सूची हेर्नुहोस्।" },
+  cpu_warn: { en: "CPU at {x}%. Moderate activity.", ne: "CPU {x}%। मध्यम गतिविधि।" },
+  batt_low: { en: "Battery at {x}% and not charging. Plug in!", ne: "ब्याट्री {x}% र चार्ज हुँदैछैन। प्लग हाल्नुहोस्!" },
+  batt_mid: { en: "Battery at {x}%. Keep a charger nearby.", ne: "ब्याट्री {x}%। चार्जर नजिकै राख्नुहोस्।" },
+  wear_bad: { en: "Battery has lost {x}% of its factory capacity. Consider a replacement soon.", ne: "ब्याट्रीले फ्याक्ट्री क्षमताको {x}% गुमाइसकेको छ। चाँडै सट्टा गर्नुहोस्।" },
+  wear_warn: { en: "Battery wear at {x}%. Aging normally, but keep an eye on it.", ne: "ब्याट्री घिसार {x}%। सामान्य तर ध्यान दिनुहोस्।" },
+  drive_fail: { en: "Drive '{x}' reports bad health. Back up your files NOW!", ne: "ड्राइभ '{x}' मा समस्या देखियो। फाइलहरूको ब्याकअप लिनुहोस्!" },
+  all_ok: { en: "No problems found. Straight-A laptop behavior!", ne: "कुनै समस्या भेटिएन। उत्कृष्ट ल्यापटप!" },
   note_A: { en: "Top of the class! Your laptop is living its best life.", ne: "कक्षामा पहिलो! तपाईंको ल्यापटप उत्कृष्ट अवस्थामा छ।" },
   note_B: { en: "Solid effort. A little cleanup and it is an easy A.", ne: "राम्रो प्रयास। अलिकति सफा गरे सजिलै A।" },
   note_C: { en: "Average. Your laptop is doing homework at the last minute.", ne: "ठीकै छ। ल्यापटपले आखिरी बेलामा मात्र होमवर्क गर्छ।" },
@@ -48,12 +52,12 @@ const T = {
   hist_down: { en: "Down {x} points since last check", ne: "पछिल्लो जाँचभन्दा {x} अंक घट्यो" },
   hist_same: { en: "Same score as last check", ne: "पछिल्लो जाँचजस्तै अंक" },
   hist_first: { en: "First scan saved!", ne: "पहिलो स्क्यान सुरक्षित!" },
-  pred_up: { en: "DocCheck AI: trending UP (+{x} pts avg). Keep it up!", ne: "🔮 DocCheck AI: ट्रेन्ड माथि (+{x} औसत)। यस्तै गर्दै गर्नुहोस्!" },
-  pred_down: { en: "DocCheck AI: trending DOWN ({x} pts avg). A cleanup is coming...", ne: "🔮 DocCheck AI: ट्रेन्ड तल ({x} औसत)। सफाई आवश्यक..." },
-  q_excellent: { en: "Excellent 🔥", ne: "उत्कृष्ट 🔥" },
-  q_good: { en: "Good 👍", ne: "राम्रो 👍" },
-  q_fair: { en: "Fair 😐", ne: "ठीक 😐" },
-  q_poor: { en: "Poor 😞", ne: "कमजोर 😞" },
+  pred_up: { en: "DocCheck AI: trending UP (+{x} pts avg). Keep it up!", ne: "DocCheck AI: ट्रेन्ड माथि (+{x} औसत)। यस्तै गर्दै गर्नुहोस्!" },
+  pred_down: { en: "DocCheck AI: trending DOWN ({x} pts avg). A cleanup is coming...", ne: "DocCheck AI: ट्रेन्ड तल ({x} औसत)। सफाई आवश्यक..." },
+  q_excellent: { en: "Excellent", ne: "उत्कृष्ट" },
+  q_good: { en: "Good", ne: "राम्रो" },
+  q_fair: { en: "Fair", ne: "ठीक" },
+  q_poor: { en: "Poor", ne: "कमजोर" },
   link_speed: { en: "Link speed", ne: "लिंक गति" },
   signal_lbl: { en: "Signal", ne: "सिग्नल" },
   not_connected_wifi: { en: "Not connected to any WiFi.", ne: "कुनै वाइफाईमा जडान छैन।" },
@@ -82,9 +86,9 @@ const T = {
   adv_batt_habit: { en: "Battery habit: stay between 20–80% charge when possible.", ne: "ब्याट्री बानी: सक्दो २०–८०% चार्जमा राख्नुहोस्।" },
   adv_maintain: { en: "Keep winning: monthly vent cleaning + Windows Update.", ne: "यस्तै राख्नुहोस्: महिनामा एक पटक भेन्ट सफा + Windows Update।" },
   adv_scan: { en: "Run DocCheck weekly to catch problems early.", ne: "हप्तामा एक पटक DocCheck चलाउनुहोस्, समस्या चाँडो समात्न।" },
-  plan_title: { en: "🎯 Your Action Plan", ne: "🎯 तपाईंको कार्ययोजना" },
-  p_trend: { en: "📈 Health Trend", ne: "📈 स्वास्थ्य ट्रेन्ड" },
-  chart_hint: { en: "Scan twice to unlock your progress chart 📊", ne: "चार्ट खोल्न दुई पटक स्क्यान गर्नुहोस् 📊" },
+  plan_title: { en: "Your Action Plan", ne: "तपाईंको कार्ययोजना" },
+  p_trend: { en: "Health Trend", ne: "स्वास्थ्य ट्रेन्ड" },
+  chart_hint: { en: "Scan twice to unlock your progress chart", ne: "चार्ट खोल्न दुई पटक स्क्यान गर्नुहोस्" },
   life_title: { en: "Laptop Life Expectancy", ne: "ल्यापटप आयु अनुमान" },
   born_line: { en: "Born {x} · {y} yrs old", ne: "{x} मा बनेको · {y} वर्ष" },
   startup_count: { en: "{x} apps wake up when you press the power button", ne: "पावर बटन थिच्दा {x} वटा एप ब्यूँझन्छन्" },
@@ -92,8 +96,15 @@ const T = {
   rx_note: { en: "Dr. DocCheck", ne: "डा. DocCheck" }
 };
 
-const MOODS = { A: "😄", B: "🙂", C: "😐", D: "😕", F: "🤒" };
-const RING_COLORS = { good: "#27ae60", mid: "#e67e22", bad: "#e74c3c" };
+const MOODS = {
+  A: "fa-face-laugh-beam",
+  B: "fa-face-smile",
+  C: "fa-face-meh",
+  D: "fa-face-frown",
+  F: "fa-face-dizzy"
+};
+const RING_COLORS = { good: "#2F6F5E", mid: "#C89B3C", bad: "#C1443B" };
+const RING_TRACK = "#E3E6DA";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function t(key, vars) {
@@ -104,6 +115,13 @@ function t(key, vars) {
     });
   }
   return str;
+}
+
+function faIcon(cls, extraClass) {
+  const i = document.createElement("i");
+  i.className = "fa-solid " + cls + (extraClass ? " " + extraClass : "");
+  i.setAttribute("aria-hidden", "true");
+  return i;
 }
 
 function getGrade(score) {
@@ -130,8 +148,6 @@ function loadHistory() {
 
 let LAST_SUBJECTS = [];
 let LAST_OVERALL = 0;
-
-const SUBJ_KEYS = { "💾": "disk", "🧠": "ram", "⚡": "cpu", "🔋": "bat", "🚀": "startup", "🔄": "fresh" };
 
 function uptimeHours(str) {
   const m = String(str || "").match(/^(\d+)h/);
@@ -164,25 +180,26 @@ function buildSubjects(r, prevD) {
   const appCount = (r.startup || []).length;
   const upH = uptimeHours(r.uptime);
   const raw = [
-    { icon: "💾", name: t("s_disk"), score: 100 - r.diskUsed, detail: t("disk_used", { x: r.diskUsed }) },
-    { icon: "🧠", name: t("s_ram"), score: 100 - r.ramUsed, detail: t("ram_used", { x: r.ramUsed }) },
-    { icon: "⚡", name: t("s_cpu"), score: 100 - r.cpuLoad, detail: t("cpu_load", { x: r.cpuLoad }) },
-    { icon: "🔋", name: t("s_battery"), score: r.battery, detail: batteryDetail },
+    { key: "disk", icon: "fa-hard-drive", name: t("s_disk"), score: 100 - r.diskUsed, detail: t("disk_used", { x: r.diskUsed }) },
+    { key: "ram", icon: "fa-memory", name: t("s_ram"), score: 100 - r.ramUsed, detail: t("ram_used", { x: r.ramUsed }) },
+    { key: "cpu", icon: "fa-microchip", name: t("s_cpu"), score: 100 - r.cpuLoad, detail: t("cpu_load", { x: r.cpuLoad }) },
+    { key: "bat", icon: "fa-battery-three-quarters", name: t("s_battery"), score: r.battery, detail: batteryDetail },
     {
-      icon: "🚀",
+      key: "startup",
+      icon: "fa-rocket",
       name: t("s_startup"),
       score: scoreStartupApps(appCount),
       detail: t("startup_count", { x: appCount })
     },
     {
-      icon: "🔄",
+      key: "fresh",
+      icon: "fa-arrows-rotate",
       name: t("s_fresh"),
       score: scoreFreshness(upH),
       detail: upH === null ? (r.uptime || "—") : t("fresh_detail", { x: r.uptime })
     }
   ];
   raw.forEach(function (s) {
-    s.key = SUBJ_KEYS[s.icon];
     s.delta = (prevD && typeof prevD[s.key] === "number")
       ? Math.round(s.score) - prevD[s.key]
       : null;
@@ -215,7 +232,7 @@ function diagnose(r) {
 
 function renderSubjects(subjects) {
   const wrap = document.getElementById("subjects");
-  wrap.innerHTML = "";
+  document.querySelectorAll("#subjects .subject-card").forEach(function (el) { el.remove(); });
   subjects.forEach(function (s, i) {
     const card = document.createElement("div");
     card.className = "subject-card";
@@ -226,7 +243,7 @@ function renderSubjects(subjects) {
 
     const icon = document.createElement("span");
     icon.className = "subject-icon";
-    icon.textContent = s.icon;
+    icon.appendChild(faIcon(s.icon));
 
     const name = document.createElement("span");
     name.className = "subject-name";
@@ -237,13 +254,16 @@ function renderSubjects(subjects) {
       delta.title = LANG === "ne" ? "पछिल्लो स्क्यानसँग तुलना" : "vs last scan";
       if (s.delta > 0) {
         delta.className = "subject-delta up";
-        delta.textContent = "▲ +" + s.delta;
+        delta.appendChild(faIcon("fa-arrow-up"));
+        delta.appendChild(document.createTextNode(" +" + s.delta));
       } else if (s.delta < 0) {
         delta.className = "subject-delta down";
-        delta.textContent = "▼ " + s.delta;
+        delta.appendChild(faIcon("fa-arrow-down"));
+        delta.appendChild(document.createTextNode(" " + s.delta));
       } else {
         delta.className = "subject-delta same";
-        delta.textContent = "— 0";
+        delta.appendChild(faIcon("fa-minus"));
+        delta.appendChild(document.createTextNode(" 0"));
       }
       top.appendChild(delta);
     }
@@ -283,13 +303,16 @@ function renderSubjects(subjects) {
   });
 }
 
+const ISSUE_ICON = { bad: "fa-triangle-exclamation", warn: "fa-circle-exclamation", ok: "fa-circle-check" };
+
 function renderDiagnosis(issues) {
   const list = document.getElementById("diagnosis");
   list.innerHTML = "";
   issues.forEach(function (i) {
     const li = document.createElement("li");
     li.className = "issue issue-" + i.level;
-    li.textContent = i.text;
+    li.appendChild(faIcon(ISSUE_ICON[i.level]));
+    li.appendChild(document.createTextNode(" " + i.text));
     list.appendChild(li);
   });
 }
@@ -303,7 +326,11 @@ function renderProcesses(procs) {
 
     const label = document.createElement("span");
     label.className = "proc-name truncate";
-    label.innerHTML = '<span class="proc-rank">#' + (i + 1) + '</span>' + p.name;
+    const rank = document.createElement("span");
+    rank.className = "proc-rank";
+    rank.textContent = "#" + (i + 1);
+    label.appendChild(rank);
+    label.appendChild(document.createTextNode(p.name));
 
     const mb = document.createElement("span");
     mb.className = "proc-mb";
@@ -350,11 +377,20 @@ function renderWifi(wifi) {
 
   const nameRow = document.createElement("li");
   nameRow.className = "wifi-name";
-  nameRow.innerHTML = '📡 <strong>' + wifi.ssid + '</strong>';
+  nameRow.appendChild(faIcon("fa-wifi"));
+  const strong = document.createElement("strong");
+  strong.textContent = " " + wifi.ssid;
+  nameRow.appendChild(strong);
 
   const speedRow = document.createElement("li");
   speedRow.className = "spec-row";
-  speedRow.innerHTML = '<span>' + t("link_speed") + '</span><span class="spec-val">' + wifi.rxRate + '</span>';
+  const speedLbl = document.createElement("span");
+  speedLbl.textContent = t("link_speed");
+  const speedVal = document.createElement("span");
+  speedVal.className = "spec-val";
+  speedVal.textContent = wifi.rxRate;
+  speedRow.appendChild(speedLbl);
+  speedRow.appendChild(speedVal);
 
   const signalRow = document.createElement("li");
   signalRow.className = "spec-row";
@@ -364,8 +400,13 @@ function renderWifi(wifi) {
   else if (wifi.signal >= 60) { quality = t("q_good"); qClass = "issue-warn"; }
   else if (wifi.signal >= 40) { quality = t("q_fair"); qClass = "issue-warn"; }
 
-  signalRow.innerHTML = '<span>' + t("signal_lbl") + '</span><span class="' + qClass + ' sig-pill">' +
-    (wifi.signal ? wifi.signal + "% — " : "") + quality + '</span>';
+  const sigLbl = document.createElement("span");
+  sigLbl.textContent = t("signal_lbl");
+  const sigVal = document.createElement("span");
+  sigVal.className = qClass + " sig-pill";
+  sigVal.textContent = (wifi.signal ? wifi.signal + "% — " : "") + quality;
+  signalRow.appendChild(sigLbl);
+  signalRow.appendChild(sigVal);
 
   list.appendChild(nameRow);
   list.appendChild(speedRow);
@@ -412,12 +453,12 @@ function renderLaptopStrip(specs) {
   if (specs.refreshHz) screenText += " @ " + specs.refreshHz + " Hz";
 
   const chips = [
-    ["🧠", t("lbl_cpu"), cpuText],
-    ["🎮", t("lbl_gpu"), specs.gpu],
-    ["📦", t("lbl_ram"), specs.ramDetail],
-    ["🖥️", t("lbl_os"), cleanOs(specs.os)],
-    ["📺", t("lbl_screen"), screenText],
-    ["⏱️", t("lbl_uptime"), specs.uptime]
+    ["fa-microchip", t("lbl_cpu"), cpuText],
+    ["fa-display", t("lbl_gpu"), specs.gpu],
+    ["fa-memory", t("lbl_ram"), specs.ramDetail],
+    ["fa-desktop", t("lbl_os"), cleanOs(specs.os)],
+    ["fa-tv", t("lbl_screen"), screenText],
+    ["fa-clock", t("lbl_uptime"), specs.uptime]
   ];
 
   const wrap = document.getElementById("laptop-chips");
@@ -426,8 +467,22 @@ function renderLaptopStrip(specs) {
     if (!c[2]) return;
     const chip = document.createElement("div");
     chip.className = "strip-chip";
-    chip.innerHTML = '<span class="strip-icon">' + c[0] + '</span><span class="strip-body"><small>' +
-      c[1] + '</small><b>' + c[2] + '</b></span>';
+
+    const iconSpan = document.createElement("span");
+    iconSpan.className = "strip-icon";
+    iconSpan.appendChild(faIcon(c[0]));
+
+    const body = document.createElement("span");
+    body.className = "strip-body";
+    const small = document.createElement("small");
+    small.textContent = c[1];
+    const b = document.createElement("b");
+    b.textContent = c[2];
+    body.appendChild(small);
+    body.appendChild(b);
+
+    chip.appendChild(iconSpan);
+    chip.appendChild(body);
     wrap.appendChild(chip);
   });
 }
@@ -469,10 +524,10 @@ function buildAdvice(r, grade, subjects) {
 
   sorted.forEach(function (s) {
     if (s.score >= 70) return;
-    if (s.icon === "💾" && acts.indexOf(t("adv_disk")) === -1) acts.push(t("adv_disk"));
-    if ((s.icon === "🧠" || s.icon === "⚡") && r.startup && r.startup.length > 4 && acts.indexOf(t("adv_startup")) === -1) acts.push(t("adv_startup"));
-    if (s.icon === "⚡" && acts.indexOf(t("adv_cpu")) === -1) acts.push(t("adv_cpu"));
-    if (s.icon === "🔋" && acts.indexOf(t("adv_batt_habit")) === -1) acts.push(t("adv_batt_habit"));
+    if (s.key === "disk" && acts.indexOf(t("adv_disk")) === -1) acts.push(t("adv_disk"));
+    if ((s.key === "ram" || s.key === "cpu") && r.startup && r.startup.length > 4 && acts.indexOf(t("adv_startup")) === -1) acts.push(t("adv_startup"));
+    if (s.key === "cpu" && acts.indexOf(t("adv_cpu")) === -1) acts.push(t("adv_cpu"));
+    if (s.key === "bat" && acts.indexOf(t("adv_batt_habit")) === -1) acts.push(t("adv_batt_habit"));
   });
 
   if (grade === "A") {
@@ -494,7 +549,7 @@ function buildSmartAdvice(r, grade, subjects) {
   }
 
   const upMatch2 = String(r.uptime || "").match(/^(\d+)h/);
-  if (upMatch2 && parseInt(upMatch2[1], 10) >= 48 && acts.indexOf(t("adv_restart", { x: r.uptime })) === -1) {
+  if (upMatch2 && parseInt(upMatch2[1], 10) >= 48) {
     const restartMsg = t("adv_restart", { x: r.uptime });
     if (acts.indexOf(restartMsg) === -1) {
       acts.splice(1, 0, restartMsg);
@@ -558,7 +613,12 @@ function renderChart(hist) {
   if (hist.length < 2) {
     chart.removeAttribute("role");
     chart.removeAttribute("aria-label");
-    chart.innerHTML = '<p class="dim chart-hint">' + t("chart_hint") + "</p>";
+    chart.innerHTML = "";
+    const hint = document.createElement("p");
+    hint.className = "dim chart-hint";
+    hint.appendChild(faIcon("fa-chart-column"));
+    hint.appendChild(document.createTextNode(" " + t("chart_hint")));
+    chart.appendChild(hint);
     return;
   }
   chart.innerHTML = "";
@@ -593,9 +653,17 @@ function renderChart(hist) {
     delta.className = "chart-delta";
     if (i > 0) {
       const d = h.s - hist[i - 1].s;
-      if (d > 0) { delta.textContent = "▲" + d; delta.classList.add("up"); }
-      else if (d < 0) { delta.textContent = "▼" + Math.abs(d); delta.classList.add("down"); }
-      else delta.textContent = "—";
+      if (d > 0) {
+        delta.classList.add("up");
+        delta.appendChild(faIcon("fa-arrow-up"));
+        delta.appendChild(document.createTextNode(d));
+      } else if (d < 0) {
+        delta.classList.add("down");
+        delta.appendChild(faIcon("fa-arrow-down"));
+        delta.appendChild(document.createTextNode(Math.abs(d)));
+      } else {
+        delta.appendChild(faIcon("fa-minus"));
+      }
     } else {
       delta.innerHTML = "&nbsp;";
     }
@@ -621,22 +689,27 @@ function updateHistory(overall, stamp, subjects) {
   const predEl = document.getElementById("prediction");
   const hist = loadHistory();
 
+  el.innerHTML = "";
   if (hist.length > 0) {
     const prev = hist[hist.length - 1].s;
     const diff = Math.round(overall) - prev;
     if (diff > 0) {
       el.className = "trend-pill trend-up";
-      el.textContent = "📈 " + t("hist_up", { x: diff });
+      el.appendChild(faIcon("fa-arrow-trend-up"));
+      el.appendChild(document.createTextNode(" " + t("hist_up", { x: diff })));
     } else if (diff < 0) {
       el.className = "trend-pill trend-down";
-      el.textContent = "📉 " + t("hist_down", { x: Math.abs(diff) });
+      el.appendChild(faIcon("fa-arrow-trend-down"));
+      el.appendChild(document.createTextNode(" " + t("hist_down", { x: Math.abs(diff) })));
     } else {
       el.className = "trend-pill trend-same";
-      el.textContent = "➖ " + t("hist_same");
+      el.appendChild(faIcon("fa-minus"));
+      el.appendChild(document.createTextNode(" " + t("hist_same")));
     }
   } else {
     el.className = "trend-pill trend-new";
-    el.textContent = "✨ " + t("hist_first");
+    el.appendChild(faIcon("fa-sparkles"));
+    el.appendChild(document.createTextNode(" " + t("hist_first")));
   }
 
   const dMap = {};
@@ -659,8 +732,13 @@ function updateHistory(overall, stamp, subjects) {
     for (let i = 0; i < half; i++) oldSum += hist[i].s;
     for (let i = half; i < hist.length; i++) newSum += hist[i].s;
     const oldAvg = oldSum / half, newAvg = newSum / (hist.length - half);
-    if (newAvg > oldAvg) predEl.textContent = "🔮 " + t("pred_up", { x: Math.round(newAvg - oldAvg) });
-    else predEl.textContent = "🔮 " + t("pred_down", { x: Math.round(newAvg - oldAvg) });
+    predEl.innerHTML = "";
+    predEl.appendChild(faIcon("fa-wand-magic-sparkles"));
+    if (newAvg > oldAvg) {
+      predEl.appendChild(document.createTextNode(" " + t("pred_up", { x: Math.round(newAvg - oldAvg) })));
+    } else {
+      predEl.appendChild(document.createTextNode(" " + t("pred_down", { x: Math.round(newAvg - oldAvg) })));
+    }
     predEl.style.display = "";
   }
 }
@@ -684,7 +762,7 @@ function confettiBurst() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
-  const colors = ["#e74c3c", "#f1c40f", "#2ecc71", "#5b6ef5", "#8f5bf0"];
+  const colors = ["#C1443B", "#C89B3C", "#2F6F5E", "#4C7EA8", "#1F2D3A"];
   const bits = [];
   for (let i = 0; i < 130; i++) {
     bits.push({
@@ -765,9 +843,10 @@ function applyStaticLabels() {
   document.querySelectorAll("[data-i18n]").forEach(function (el) {
     el.textContent = t(el.getAttribute("data-i18n"));
   });
-  document.getElementById("print-btn").textContent = t("print_btn");
-  document.getElementById("csv-btn").textContent = t("csv_btn");
-  document.getElementById("lang-btn").textContent = t("lang_switch");
+  document.getElementById("lang-btn").setAttribute(
+    "aria-label",
+    LANG === "en" ? "Switch to Nepali language" : "अंग्रेजी भाषामा बदल्नुहोस्"
+  );
 }
 
 function main() {
@@ -809,7 +888,8 @@ function main() {
     (LANG === "ne" ? '" ' : "\u201C") + T["note_" + grade][LANG] + (LANG === "ne" ? " \"" : "\"");
 
   const moodEl = document.getElementById("mood");
-  moodEl.textContent = MOODS[grade];
+  moodEl.innerHTML = "";
+  moodEl.appendChild(faIcon(MOODS[grade]));
   moodEl.style.animation = "none";
   void moodEl.offsetWidth;
   moodEl.style.animation = "";
@@ -822,7 +902,7 @@ function main() {
   const ring = document.getElementById("score-ring");
   const deg = Math.max(0, Math.min(100, Math.round(overall))) * 3.6;
   ring.style.background =
-    "conic-gradient(" + RING_COLORS[toneClass(overall)] + " " + deg + "deg, #edf1f5 " + deg + "deg)";
+    "conic-gradient(" + RING_COLORS[toneClass(overall)] + " " + deg + "deg, " + RING_TRACK + " " + deg + "deg)";
 
   updateHistory(overall, r.scannedAt, subjects);
 
@@ -852,6 +932,70 @@ window.addEventListener("afterprint", function () {
 });
 
 document.getElementById("csv-btn").addEventListener("click", exportCSV);
+
+const SCAN_BTN = document.getElementById("scan-btn");
+const SCAN_STATUS = document.getElementById("scan-status");
+const SCAN_ENDPOINTS = ["/api/scan", "http://localhost:8619/api/scan"];
+
+function fetchScan(i) {
+  return fetch(SCAN_ENDPOINTS[i], { cache: "no-store" }).then(function (res) {
+    if (!res.ok) throw new Error("scan endpoint unavailable");
+    return res.text();
+  }).catch(function (err) {
+    if (i + 1 < SCAN_ENDPOINTS.length) return fetchScan(i + 1);
+    throw err;
+  });
+}
+
+SCAN_BTN.addEventListener("click", function () {
+  if (SCAN_BTN.disabled) return;
+  const label = SCAN_BTN.querySelector("span");
+  SCAN_BTN.disabled = true;
+  SCAN_BTN.classList.add("scanning");
+
+  let secs = 0;
+  label.textContent = t("scan_running");
+  if (SCAN_STATUS) SCAN_STATUS.textContent = t("scan_running");
+  const tick = setInterval(function () {
+    secs += 1;
+    label.textContent = t("scan_running") + " " + secs + "s";
+    if (SCAN_STATUS) SCAN_STATUS.textContent = t("scan_running") + " " + secs + "s";
+  }, 1000);
+
+  const finish = function (msg) {
+    clearInterval(tick);
+    SCAN_BTN.disabled = false;
+    SCAN_BTN.classList.remove("scanning");
+    label.textContent = t("scan_btn_label");
+    if (SCAN_STATUS) SCAN_STATUS.textContent = msg;
+  };
+
+  const prevReport = window.REPORT;
+
+  fetchScan(0)
+    .then(function (txt) {
+      const s = document.createElement("script");
+      s.textContent = txt;
+      document.body.appendChild(s);
+      s.remove();
+      if (!window.REPORT || window.REPORT === prevReport) {
+        throw new Error("scan payload invalid");
+      }
+      main();
+      const dateEl = document.getElementById("scan-date");
+      if (dateEl) {
+        dateEl.classList.remove("flash");
+        void dateEl.offsetWidth;
+        dateEl.classList.add("flash");
+      }
+      finish(t("scan_status_ok") + " — " + window.REPORT.scannedAt);
+      const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "auto" });
+    })
+    .catch(function () {
+      finish(t("scan_fail"));
+    });
+});
 
 document.getElementById("lang-btn").addEventListener("click", function () {
   LANG = LANG === "en" ? "ne" : "en";

@@ -3,48 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
   <title>DocCheck — Laptop Health Report Card</title>
   <meta name="description" content="DocCheck grades your Windows laptop's health like a school report card — disk, RAM, CPU and battery scores, trend charts, life expectancy and a doctor's action plan.">
-  <meta name="theme-color" content="#16202c">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#F6F7F2">
+  <link rel="canonical" href="https://doccheck.example.com/">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="DocCheck — Laptop Health Report Card">
   <meta property="og:description" content="A doctor for your laptop that grades it like homework. Scan with Git Bash, get real health grades.">
+  <meta property="og:site_name" content="DocCheck">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DocCheck — Laptop Health Report Card">
+  <meta name="twitter:description" content="A doctor for your laptop that grades it like homework.">
+
   <link rel="icon" href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>'>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
   <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"></noscript>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
 </head>
 <body>
+
+  <a class="skip-link" href="#main">Skip to main content</a>
 
   <div class="dashboard">
 
     <header class="hero">
-      <button id="lang-btn" type="button">नेपाली</button>
-      <h1>🩺 DocCheck</h1>
+      <button id="lang-btn" type="button" aria-label="Switch to Nepali language">
+        <i class="fa-solid fa-language" aria-hidden="true"></i>
+        <span data-i18n="lang_switch">नेपाली</span>
+      </button>
+      <p class="hero-eyebrow"><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Health report card</p>
+      <h1><i class="fa-solid fa-stethoscope" aria-hidden="true"></i> DocCheck</h1>
       <p class="subtitle" data-i18n="subtitle">Laptop Health Report Card</p>
       <p class="scan-date" id="scan-date">No scan yet</p>
     </header>
 
-    <main>
+    <main id="main">
 
-      <section class="score-hero" aria-label="Overall result">
+      <section class="score-hero" aria-labelledby="score-hero-heading">
+        <h2 id="score-hero-heading" class="sr-only">Overall result</h2>
         <div class="stamp-wrap">
           <div class="grade-stamp" id="overall-grade" aria-label="Overall grade">?</div>
           <span class="stamp-label" data-i18n="stamp_label">Grade</span>
         </div>
-        <div class="score-ring" id="score-ring">
-          <div class="score-inner">
-            <div><span id="overall-percent">--</span><span class="pct">%</span></div>
-            <p class="score-label" data-i18n="score_label">Overall Health Score</p>
+        <div class="score-ring-wrap" aria-hidden="true">
+          <div class="score-ring" id="score-ring">
+            <div class="score-inner">
+              <div><span id="overall-percent">--</span><span class="pct">%</span></div>
+              <p class="score-label" data-i18n="score_label">Overall Health Score</p>
+            </div>
           </div>
         </div>
-        <div class="mood" id="mood" aria-hidden="true">🙂</div>
+        <div class="mood" id="mood" aria-hidden="true"><i class="fa-regular fa-face-smile"></i></div>
         <p class="teacher-note" id="teacher-note" aria-live="polite">Waiting for results...</p>
       </section>
 
       <section class="laptop-strip" id="laptop-strip" style="display:none" aria-label="Your laptop identity">
         <div class="laptop-id">
-          <span class="laptop-avatar" aria-hidden="true">💻</span>
+          <span class="laptop-avatar" aria-hidden="true"><i class="fa-solid fa-laptop"></i></span>
           <div>
             <p class="laptop-kicker" data-i18n="your_laptop">Your Laptop</p>
             <h2 class="laptop-name" id="laptop-name">—</h2>
@@ -53,20 +80,22 @@
         <div class="laptop-chips" id="laptop-chips"></div>
       </section>
 
-      <section class="subjects" id="subjects" aria-label="Subject scores"></section>
+      <section class="subjects" id="subjects" aria-labelledby="subjects-heading">
+        <h2 id="subjects-heading" class="sr-only">Subject scores</h2>
+      </section>
 
       <section class="trend-zone" aria-label="Health trend">
-        <h2 class="trend-title" data-i18n="p_trend">📈 Health Trend</h2>
+        <h2 class="trend-title"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> <span data-i18n="p_trend">Health Trend</span></h2>
         <p id="history" role="status"></p>
         <p id="prediction" role="status" style="display:none"></p>
         <div class="chart-card">
-          <div id="chart"><p class="dim chart-hint" data-i18n="chart_hint">Scan twice to unlock your progress chart 📊</p></div>
+          <div id="chart"><p class="dim chart-hint"><i class="fa-solid fa-chart-column" aria-hidden="true"></i> <span data-i18n="chart_hint">Scan twice to unlock your progress chart</span></p></div>
         </div>
       </section>
 
       <section class="life-banner" id="life-banner" style="display:none" aria-label="Life expectancy">
         <div class="life-head">
-          <span class="life-icon" aria-hidden="true">⏳</span>
+          <span class="life-icon" aria-hidden="true"><i class="fa-solid fa-hourglass-half"></i></span>
           <div>
             <h3 data-i18n="life_title">Laptop Life Expectancy</h3>
             <p class="life-born" id="life-born"></p>
@@ -82,43 +111,46 @@
         </div>
       </section>
 
-      <section class="panel panel-rx" aria-label="Doctor's prescription">
-        <h2 data-i18n="p_prescription">🩺 Doctor&rsquo;s Prescription</h2>
+      <section class="panel panel-rx" aria-labelledby="rx-heading">
+        <h2 id="rx-heading"><i class="fa-solid fa-kit-medical" aria-hidden="true"></i> <span data-i18n="p_prescription">Doctor&rsquo;s Prescription</span></h2>
         <ul id="diagnosis"><li class="issue issue-ok">Run health.sh first!</li></ul>
-        <h3 class="plan-title" data-i18n="plan_title">🎯 Your Action Plan</h3>
+        <h3 class="plan-title"><i class="fa-solid fa-bullseye" aria-hidden="true"></i> <span data-i18n="plan_title">Your Action Plan</span></h3>
         <ol id="action-plan"></ol>
       </section>
 
       <details class="deep-dive">
         <summary>
-          <span data-i18n="deepdive_title">🔬 Deep Dive &mdash; Raw Details</span>
-          <span class="dd-arrow" aria-hidden="true">▾</span>
+          <i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i>
+          <span data-i18n="deepdive_title">Deep Dive — Raw Details</span>
+          <i class="fa-solid fa-chevron-down dd-arrow" aria-hidden="true"></i>
         </summary>
         <div class="panels">
           <section class="panel">
-            <h2 data-i18n="p_running">⚙️ Running Right Now</h2>
+            <h2><i class="fa-solid fa-gears" aria-hidden="true"></i> <span data-i18n="p_running">Running Right Now</span></h2>
             <ul id="processes"><li class="proc-row dim">No scan data</li></ul>
           </section>
           <section class="panel">
-            <h2 data-i18n="p_startup">🚀 Starts With Your Laptop</h2>
+            <h2><i class="fa-solid fa-rocket" aria-hidden="true"></i> <span data-i18n="p_startup">Starts With Your Laptop</span></h2>
             <p class="startup-summary" id="startup-summary"></p>
             <ul class="startup-chips" id="startup"><li class="dim">No scan data</li></ul>
           </section>
           <section class="panel">
-            <h2 data-i18n="p_wifi">📶 WiFi Connection</h2>
+            <h2><i class="fa-solid fa-wifi" aria-hidden="true"></i> <span data-i18n="p_wifi">WiFi Connection</span></h2>
             <ul id="wifi"><li class="dim">No scan data</li></ul>
           </section>
         </div>
         <section class="panel panel-storage" aria-label="Storage drives">
-          <h2 data-i18n="p_storage">💿 Storage Drives</h2>
+          <h2><i class="fa-solid fa-database" aria-hidden="true"></i> <span data-i18n="p_storage">Storage Drives</span></h2>
           <ul id="storage"><li class="dim">No scan data</li></ul>
         </section>
       </details>
 
       <div class="btn-row">
-        <button id="print-btn" type="button">🖨️ Print Report Card</button>
-        <button id="csv-btn" type="button">⬇️ Export CSV</button>
+        <button id="scan-btn" type="button" aria-label="Rescan laptop health now"><i class="fa-solid fa-rotate-right" aria-hidden="true"></i> <span data-i18n="scan_btn_label">Scan Again</span></button>
+        <button id="print-btn" type="button"><i class="fa-solid fa-print" aria-hidden="true"></i> <span data-i18n="print_btn_label">Print Report Card</span></button>
+        <button id="csv-btn" type="button"><i class="fa-solid fa-file-csv" aria-hidden="true"></i> <span data-i18n="csv_btn_label">Export CSV</span></button>
       </div>
+      <p class="scan-status" id="scan-status" role="status" aria-live="polite"></p>
 
     </main>
 
@@ -127,6 +159,17 @@
   </div>
 
   <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DocCheck",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Windows",
+    "description": "DocCheck grades your Windows laptop's health like a school report card, covering disk, RAM, CPU, battery, startup load and freshness, with trend charts and an action plan."
+  }
+  </script>
 
   <script src="data.js"></script>
   <script src="script.js"></script>
